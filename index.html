@@ -1,0 +1,691 @@
+```html
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Portail officiel de la Commune Rurale Ouled Imloul, Province de Rehamna - Services, annuaire, agriculture, transport et actualités.">
+    <meta name="theme-color" content="#C67B3C">
+    <title>Commune Ouled Imloul | Portail Officiel - Rehamna</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+          integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        :root {
+            --terre-cuite: #C67B3C;
+            --terre-cuite-fonce: #A05A2C;
+            --terre-cuite-clair: #E8C9A0;
+            --vert-agricole: #5A8A3F;
+            --vert-fonce: #4A7230;
+            --vert-clair: #E8F0E2;
+            --blanc-creme: #FFF9F4;
+            --blanc: #FFFFFF;
+            --texte-fonce: #2D2418;
+            --texte-medium: #5C4A3A;
+            --texte-clair: #8B7355;
+            --fond-beige: #FDF5EC;
+            --fond-sable: #FAF2E8;
+            --rouge-urgence: #C0392B;
+            --bleu-info: #2980B9;
+            --jaune-alerte: #E6A817;
+            --ombre-douce: 0 2px 12px rgba(45,36,24,0.08);
+            --ombre-carte: 0 4px 20px rgba(45,36,24,0.10);
+            --rayon-carte: 14px;
+            --transition-rapide: 0.2s ease;
+            --transition-douce: 0.35s cubic-bezier(0.4,0,0.2,1);
+            --max-largeur: 1100px;
+            --police-principale: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; font-size: 16px; -webkit-text-size-adjust: 100%; }
+        body {
+            font-family: var(--police-principale);
+            background: var(--blanc-creme);
+            color: var(--texte-fonce);
+            line-height: 1.65;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            transition: all 0.2s;
+        }
+        .conteneur { width: 100%; max-width: var(--max-largeur); margin: 0 auto; padding: 0 18px; }
+        .site-header { background: var(--blanc); position: sticky; top: 0; z-index: 1000; box-shadow: 0 1px 8px rgba(45,36,24,0.10); border-bottom: 3px solid var(--terre-cuite); }
+        .header-inner { display: flex; align-items: center; justify-content: space-between; padding: 12px 0; max-width: var(--max-largeur); margin: 0 auto; padding-left: 18px; padding-right: 18px; }
+        .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--texte-fonce); flex-shrink: 0; }
+        .logo-icone { width: 42px; height: 42px; background: var(--terre-cuite); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--blanc); font-size: 1.1rem; font-weight: 700; flex-shrink: 0; letter-spacing: 1px; }
+        .logo-texte { font-family: var(--police-principale); font-size: 1rem; font-weight: 700; line-height: 1.2; color: var(--texte-fonce); }
+        .logo-texte small { display: block; font-weight: 400; font-size: 0.7rem; color: var(--texte-clair); letter-spacing: 0.5px; }
+        .nav-principale { display: flex; align-items: center; gap: 6px; list-style: none; }
+        .nav-principale a { display: block; padding: 10px 14px; text-decoration: none; color: var(--texte-medium); font-weight: 600; font-size: 0.9rem; border-radius: 8px; transition: all var(--transition-rapide); white-space: nowrap; letter-spacing: 0.3px; }
+        .nav-principale a:hover, .nav-principale a:focus-visible { background: var(--fond-beige); color: var(--terre-cuite); outline: none; }
+        .nav-principale a.actif { color: var(--terre-cuite); background: var(--fond-beige); }
+        .lang-selector { display: flex; align-items: center; gap: 6px; margin-left: 10px; }
+        .lang-btn { border: none; background: none; font-size: 1rem; cursor: pointer; padding: 8px; border-radius: 6px; transition: all var(--transition-rapide); color: var(--texte-medium); font-weight: 600; }
+        .lang-btn.active-lang { color: var(--terre-cuite); background: var(--fond-beige); }
+        .lang-btn:hover { background: var(--fond-beige); }
+        .btn-menu { display: none; background: none; border: none; cursor: pointer; padding: 10px; border-radius: 8px; color: var(--texte-fonce); font-size: 1.5rem; transition: background var(--transition-rapide); line-height: 1; }
+        .btn-menu:hover { background: var(--fond-beige); }
+        .btn-menu .fa-times { display: none; }
+        .btn-menu.ouvert .fa-bars { display: none; }
+        .btn-menu.ouvert .fa-times { display: inline-block; }
+        .nav-mobile { display: none; background: var(--blanc); border-top: 2px solid var(--fond-beige); overflow: hidden; max-height: 0; transition: max-height var(--transition-douce), padding var(--transition-douce); }
+        .nav-mobile.actif { max-height: 600px; padding: 8px 0; }
+        .nav-mobile ul { list-style: none; display: flex; flex-direction: column; gap: 2px; padding: 0 18px; }
+        .nav-mobile a { display: block; padding: 13px 16px; text-decoration: none; color: var(--texte-medium); font-weight: 600; font-size: 0.95rem; border-radius: 8px; transition: all var(--transition-rapide); }
+        .nav-mobile a:hover { background: var(--fond-beige); color: var(--terre-cuite); }
+        .section-hero { background: linear-gradient(160deg, #fdf5ec 0%, #f8e8d5 30%, #fdf5ec 60%, #faf2e8 100%); padding: 50px 0 56px; text-align: center; position: relative; overflow: hidden; }
+        .section-hero::after { content: ''; position: absolute; bottom: -28px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 700px; height: 60px; background: var(--vert-agricole); border-radius: 50%; opacity: 0.06; pointer-events: none; }
+        .hero-badge { display: inline-block; background: var(--vert-clair); color: var(--vert-fonce); padding: 6px 16px; border-radius: 20px; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.5px; margin-bottom: 16px; text-transform: uppercase; }
+        .section-hero h1 { font-size: clamp(1.6rem, 5vw, 2.4rem); color: var(--texte-fonce); margin-bottom: 12px; line-height: 1.25; font-weight: 800; }
+        .section-hero h1 span { color: var(--terre-cuite); }
+        .section-hero .accroche { font-size: 1rem; color: var(--texte-medium); max-width: 550px; margin: 0 auto 28px; line-height: 1.6; }
+        .btn-cta { display: inline-block; background: var(--terre-cuite); color: var(--blanc); padding: 14px 30px; border-radius: 30px; text-decoration: none; font-weight: 700; font-size: 0.95rem; letter-spacing: 0.4px; transition: all var(--transition-douce); box-shadow: 0 6px 20px rgba(198,123,60,0.30); border: none; cursor: pointer; }
+        .btn-cta:hover { background: var(--terre-cuite-fonce); transform: translateY(-2px); box-shadow: 0 10px 28px rgba(198,123,60,0.40); }
+        .section { padding: 48px 0; }
+        .section-alt { background: var(--blanc); }
+        .section-titre { text-align: center; margin-bottom: 36px; }
+        .section-titre h2 { font-size: clamp(1.4rem, 4vw, 1.9rem); color: var(--texte-fonce); font-weight: 800; margin-bottom: 6px; position: relative; display: inline-block; }
+        .section-titre h2::after { content: ''; display: block; width: 50px; height: 3px; background: var(--terre-cuite); margin: 10px auto 0; border-radius: 2px; }
+        .section-titre .sous-titre { color: var(--texte-clair); font-size: 0.9rem; margin-top: 4px; }
+        .grille-cartes { display: grid; grid-template-columns: 1fr; gap: 18px; }
+        @media (min-width: 500px) { .grille-cartes { grid-template-columns: repeat(2, 1fr); } }
+        @media (min-width: 768px) { .grille-cartes { grid-template-columns: repeat(3, 1fr); gap: 22px; } }
+        .carte { background: var(--blanc); border-radius: var(--rayon-carte); padding: 22px 20px; box-shadow: var(--ombre-carte); transition: all var(--transition-douce); border: 1px solid transparent; display: flex; flex-direction: column; gap: 8px; }
+        .carte:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(45,36,24,0.14); border-color: var(--terre-cuite-clair); }
+        .carte-icone { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0; }
+        .carte-icone.terre { background: #fdf0e5; color: var(--terre-cuite); }
+        .carte-icone.vert { background: var(--vert-clair); color: var(--vert-agricole); }
+        .carte h3 { font-size: 1rem; font-weight: 700; color: var(--texte-fonce); line-height: 1.3; }
+        .carte .nom-arabe { font-size: 0.75rem; color: var(--texte-clair); margin-top: 2px; font-weight: 400; }
+        .carte p { font-size: 0.85rem; color: var(--texte-clair); line-height: 1.5; }
+        .badge-douar { display: inline-block; background: var(--fond-beige); color: var(--terre-cuite); padding: 3px 10px; border-radius: 12px; font-size: 0.72rem; font-weight: 600; align-self: flex-start; }
+        .grille-pros, .grille-transport { display: grid; grid-template-columns: 1fr; gap: 16px; }
+        @media (min-width: 500px) { .grille-pros, .grille-transport { grid-template-columns: repeat(2, 1fr); } }
+        @media (min-width: 768px) { .grille-pros { grid-template-columns: repeat(3, 1fr); } .grille-transport { grid-template-columns: repeat(2, 1fr); } }
+        @media (min-width: 960px) { .grille-pros { grid-template-columns: repeat(4, 1fr); } }
+        .carte-pro { background: var(--blanc); border-radius: var(--rayon-carte); padding: 20px 18px; box-shadow: var(--ombre-douce); display: flex; flex-direction: column; gap: 10px; transition: all var(--transition-douce); border-left: 4px solid var(--vert-agricole); }
+        .carte-pro:hover { box-shadow: var(--ombre-carte); transform: translateY(-3px); }
+        .carte-pro .metier-icone { font-size: 1.5rem; color: var(--terre-cuite); }
+        .carte-pro .metier-nom { font-weight: 700; font-size: 0.9rem; color: var(--texte-fonce); text-transform: uppercase; }
+        .carte-pro .pro-nom { font-weight: 600; font-size: 1rem; color: var(--texte-medium); }
+        .carte-pro .pro-douar { font-size: 0.8rem; color: var(--texte-clair); display: flex; align-items: center; gap: 5px; }
+        .btn-appeler { display: inline-flex; align-items: center; justify-content: center; gap: 8px; background: var(--vert-agricole); color: var(--blanc); padding: 10px 16px; border-radius: 25px; text-decoration: none; font-weight: 700; font-size: 0.85rem; transition: all var(--transition-rapide); margin-top: auto; border: none; cursor: pointer; }
+        .btn-appeler:hover { background: var(--vert-fonce); box-shadow: 0 4px 14px rgba(90,138,63,0.35); }
+        .grille-agri { display: grid; grid-template-columns: 1fr; gap: 20px; }
+        @media (min-width: 600px) { .grille-agri { grid-template-columns: repeat(3, 1fr); } }
+        .carte-agri { background: var(--blanc); border-radius: var(--rayon-carte); padding: 24px 20px; box-shadow: var(--ombre-douce); transition: all var(--transition-douce); text-align: center; border-top: 4px solid var(--vert-agricole); }
+        .carte-agri:hover { box-shadow: var(--ombre-carte); transform: translateY(-3px); }
+        .carte-agri .agri-icone { font-size: 3rem; margin-bottom: 10px; display: block; }
+        .carte-agri h3 { font-weight: 700; font-size: 1.05rem; color: var(--texte-fonce); margin-bottom: 8px; }
+        .carte-agri p { font-size: 0.83rem; color: var(--texte-clair); line-height: 1.6; text-align: left; }
+        .lire-plus { display: inline-block; margin-top: 12px; color: var(--vert-agricole); font-weight: 700; font-size: 0.85rem; cursor: pointer; text-decoration: underline; background: none; border: none; }
+        .contenu-complet { display: none; margin-top: 8px; }
+        .contenu-complet.visible { display: block; }
+        .alerte-bandeau { background: var(--jaune-alerte); color: #3e2c00; padding: 14px 18px; border-radius: 10px; margin-bottom: 16px; display: flex; align-items: center; gap: 12px; font-weight: 600; font-size: 0.9rem; box-shadow: var(--ombre-douce); flex-wrap: wrap; }
+        .alerte-bandeau i { font-size: 1.3rem; flex-shrink: 0; }
+        .alerte-bandeau.meteo { background: #d4e6f9; color: #1a3a5c; }
+        .alerte-bandeau.prix { background: #e8f0e2; color: #2d4a1e; }
+        .simulateur-box { background: var(--blanc); border-radius: var(--rayon-carte); padding: 24px; box-shadow: var(--ombre-carte); max-width: 500px; margin: 20px auto; }
+        .simulateur-box label { font-weight: 600; font-size: 0.85rem; display: block; margin: 12px 0 4px; color: var(--texte-medium); }
+        .simulateur-box input, .simulateur-box select { width: 100%; padding: 10px 14px; border: 2px solid #e8ddd0; border-radius: 8px; font-size: 0.9rem; background: var(--fond-beige); }
+        .simulateur-box .resultat { background: var(--vert-clair); padding: 16px; border-radius: 10px; margin-top: 16px; text-align: center; font-weight: 700; color: var(--vert-fonce); font-size: 1rem; }
+        .btn-simuler { background: var(--terre-cuite); color: var(--blanc); padding: 12px 24px; border: none; border-radius: 25px; font-weight: 700; cursor: pointer; margin-top: 16px; width: 100%; }
+        .demarche-accordeon { margin-bottom: 10px; border-radius: 10px; overflow: hidden; box-shadow: var(--ombre-douce); }
+        .demarche-titre { background: var(--fond-beige); padding: 16px 20px; font-weight: 700; cursor: pointer; display: flex; justify-content: space-between; align-items: center; border: none; width: 100%; text-align: left; font-size: 0.95rem; color: var(--texte-fonce); transition: background var(--transition-rapide); }
+        .demarche-titre:hover { background: var(--terre-cuite-clair); }
+        .demarche-titre i { transition: transform var(--transition-rapide); }
+        .demarche-titre.ouvert i { transform: rotate(180deg); }
+        .demarche-contenu { display: none; padding: 16px 20px; background: var(--blanc); font-size: 0.85rem; color: var(--texte-medium); line-height: 1.7; }
+        .demarche-contenu.visible { display: block; }
+        .liste-etablissements { display: grid; grid-template-columns: 1fr; gap: 16px; }
+        @media (min-width: 600px) { .liste-etablissements { grid-template-columns: repeat(2, 1fr); } }
+        @media (min-width: 900px) { .liste-etablissements { grid-template-columns: repeat(3, 1fr); } }
+        .carte-etab { background: var(--blanc); border-radius: var(--rayon-carte); padding: 18px 16px; box-shadow: var(--ombre-douce); display: flex; align-items: flex-start; gap: 14px; transition: all var(--transition-douce); }
+        .carte-etab:hover { box-shadow: var(--ombre-carte); }
+        .etab-icone { width: 40px; height: 40px; border-radius: 10px; background: var(--fond-beige); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; color: var(--terre-cuite); flex-shrink: 0; }
+        .carte-etab h4 { font-size: 0.95rem; font-weight: 700; color: var(--texte-fonce); margin-bottom: 3px; }
+        .carte-etab p { font-size: 0.8rem; color: var(--texte-clair); }
+        .badge-horaire { display: inline-block; background: var(--vert-clair); color: var(--vert-fonce); padding: 3px 10px; border-radius: 12px; font-size: 0.7rem; font-weight: 600; margin-top: 4px; }
+        .badge-souk { display: inline-block; background: #fff3e0; color: var(--terre-cuite-fonce); padding: 3px 10px; border-radius: 12px; font-size: 0.7rem; font-weight: 600; margin-top: 4px; }
+        .badge-urgence { display: inline-block; background: #fde8e8; color: var(--rouge-urgence); padding: 3px 10px; border-radius: 12px; font-size: 0.7rem; font-weight: 600; margin-top: 4px; }
+        .contact-grid { display: grid; grid-template-columns: 1fr; gap: 28px; }
+        @media (min-width: 768px) { .contact-grid { grid-template-columns: 1fr 1fr; gap: 32px; } }
+        .carte-maps { border-radius: var(--rayon-carte); overflow: hidden; box-shadow: var(--ombre-carte); aspect-ratio: 4/3; min-height: 280px; background: #e8e0d8; }
+        .carte-maps iframe { width: 100%; height: 100%; border: none; }
+        .formulaire-contact { background: var(--blanc); border-radius: var(--rayon-carte); padding: 24px 20px; box-shadow: var(--ombre-carte); display: flex; flex-direction: column; gap: 16px; }
+        .form-groupe { display: flex; flex-direction: column; gap: 5px; }
+        .form-groupe label { font-weight: 600; font-size: 0.82rem; color: var(--texte-medium); }
+        .form-groupe input, .form-groupe textarea { padding: 12px 14px; border: 2px solid #e8ddd0; border-radius: 10px; font-family: var(--police-principale); font-size: 0.9rem; background: var(--fond-beige); resize: vertical; color: var(--texte-fonce); }
+        .form-groupe input:focus, .form-groupe textarea:focus { outline: none; border-color: var(--terre-cuite); background: var(--blanc); box-shadow: 0 0 0 4px rgba(198,123,60,0.08); }
+        .btn-envoyer { background: var(--terre-cuite); color: var(--blanc); padding: 13px 24px; border-radius: 30px; border: none; font-weight: 700; cursor: pointer; align-self: flex-start; box-shadow: 0 4px 14px rgba(198,123,60,0.25); }
+        .message-succes { display: none; background: var(--vert-clair); color: var(--vert-fonce); padding: 12px 16px; border-radius: 10px; font-weight: 600; font-size: 0.9rem; text-align: center; }
+        .message-succes.visible { display: block; animation: fadeIn 0.4s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
+        .site-footer { background: #2D2418; color: #c9bdaa; padding: 36px 0 20px; margin-top: auto; font-size: 0.85rem; }
+        .footer-inner { max-width: var(--max-largeur); margin: 0 auto; padding: 0 18px; display: grid; grid-template-columns: 1fr; gap: 24px; text-align: center; }
+        @media (min-width: 600px) { .footer-inner { grid-template-columns: repeat(3, 1fr); text-align: left; } }
+        .footer-col h4 { color: var(--blanc); font-weight: 700; font-size: 0.9rem; margin-bottom: 10px; }
+        .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+        .footer-col a { color: #c9bdaa; text-decoration: none; font-size: 0.82rem; transition: color var(--transition-rapide); }
+        .footer-col a:hover { color: var(--terre-cuite-clair); }
+        .footer-bas { text-align: center; padding-top: 20px; margin-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.75rem; color: #8a7b6a; }
+        .btn-remonter { position: fixed; bottom: 24px; right: 20px; z-index: 999; width: 44px; height: 44px; border-radius: 50%; background: var(--terre-cuite); color: var(--blanc); border: none; cursor: pointer; font-size: 1.1rem; box-shadow: 0 4px 16px rgba(198,123,60,0.40); opacity: 0; pointer-events: none; transform: translateY(20px); transition: all var(--transition-douce); display: flex; align-items: center; justify-content: center; }
+        .btn-remonter.visible { opacity: 1; pointer-events: auto; transform: translateY(0); }
+        .text-center { text-align: center; }
+        .mt-2 { margin-top: 16px; }
+
+        /* RTL support */
+        html[dir="rtl"] body { direction: rtl; text-align: right; }
+        html[dir="rtl"] .nav-principale { padding-right: 0; }
+        html[dir="rtl"] .carte-pro { border-left: none; border-right: 4px solid var(--vert-agricole); }
+        html[dir="rtl"] .carte-pro .pro-douar { flex-direction: row-reverse; }
+        html[dir="rtl"] .btn-appeler i { margin-left: 0; margin-right: 8px; }
+        html[dir="rtl"] .demarche-titre { text-align: right; }
+        html[dir="rtl"] .demarche-titre i { float: left; }
+        html[dir="rtl"] .lang-selector { margin-left: 0; margin-right: 10px; }
+        html[dir="rtl"] .carte-agri p { text-align: right; }
+        html[dir="rtl"] .alerte-bandeau { flex-direction: row-reverse; }
+        html[dir="rtl"] .btn-remonter { right: auto; left: 20px; }
+        html[dir="rtl"] .badge-douar, html[dir="rtl"] .badge-horaire, html[dir="rtl"] .badge-souk { margin-right: 0; }
+
+        @media (max-width: 767px) {
+            .nav-principale { display: none; }
+            .btn-menu { display: flex; }
+            .nav-mobile { display: block; }
+            .header-inner { padding: 10px 14px; }
+            .section { padding: 36px 0; }
+            .section-hero { padding: 36px 0 40px; }
+        }
+        @media (min-width: 768px) {
+            .nav-mobile { display: none !important; }
+            .btn-menu { display: none; }
+            .nav-principale { display: flex; }
+        }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-inner">
+            <a href="#accueil" class="logo"><div class="logo-icone">OI</div><span class="logo-texte" data-i18n="header.logo">Commune Ouled Imloul<small data-i18n="header.province">Province de Rehamna</small></span></a>
+            <nav>
+                <ul class="nav-principale" id="navDesktop">
+                    <li><a href="#accueil" data-i18n="nav.accueil">Accueil</a></li>
+                    <li><a href="#decouvrir" data-i18n="nav.decouvrir">Découvrir</a></li>
+                    <li><a href="#annuaire" data-i18n="nav.annuaire">Annuaire</a></li>
+                    <li><a href="#agriculture" data-i18n="nav.agriculture">Agriculture</a></li>
+                    <li><a href="#transport" data-i18n="nav.transport">Transport</a></li>
+                    <li><a href="#demarches" data-i18n="nav.demarches">Démarches</a></li>
+                    <li><a href="#urgences" data-i18n="nav.urgences">Urgences</a></li>
+                    <li><a href="#contact" data-i18n="nav.contact">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="lang-selector">
+                <button class="lang-btn active-lang" id="btnFr" data-lang="fr">FR</button>
+                <button class="lang-btn" id="btnAr" data-lang="ar">AR</button>
+            </div>
+            <button class="btn-menu" id="btnMenu" aria-label="Menu"><i class="fa-solid fa-bars"></i><i class="fa-solid fa-times"></i></button>
+        </div>
+        <nav class="nav-mobile" id="navMobile">
+            <ul id="navMobileList">
+                <li><a href="#accueil" data-i18n="nav.accueil">Accueil</a></li>
+                <li><a href="#decouvrir" data-i18n="nav.decouvrir">Découvrir</a></li>
+                <li><a href="#annuaire" data-i18n="nav.annuaire">Annuaire</a></li>
+                <li><a href="#agriculture" data-i18n="nav.agriculture">Agriculture</a></li>
+                <li><a href="#transport" data-i18n="nav.transport">Transport</a></li>
+                <li><a href="#demarches" data-i18n="nav.demarches">Démarches</a></li>
+                <li><a href="#urgences" data-i18n="nav.urgences">Urgences</a></li>
+                <li><a href="#contact" data-i18n="nav.contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main id="accueil">
+        <section class="section-hero">
+            <div class="conteneur">
+                <span class="hero-badge" data-i18n="hero.badge">Bienvenue</span>
+                <h1 data-i18n="hero.titre">Bienvenue à <span>Ouled Imloul</span></h1>
+                <p class="accroche" data-i18n="hero.accroche">Au cœur de la province de Rehamna, notre commune allie traditions agricoles, solidarité rurale et développement local.</p>
+                <a href="#services" class="btn-cta" data-i18n="hero.btn">Découvrir nos services <i class="fa-solid fa-arrow-right"></i></a>
+            </div>
+        </section>
+
+        <section class="section" id="alertes">
+            <div class="conteneur">
+                <div class="section-titre"><h2 data-i18n="alertes.titre">📢 Alertes & Informations</h2><p class="sous-titre" data-i18n="alertes.sousTitre">Météo agricole, prix du bétail, avis importants</p></div>
+                <div class="alerte-bandeau meteo"><i class="fa-solid fa-cloud-sun-rain"></i> <span data-i18n="alertes.meteo"><strong>Météo 3 jours :</strong> Risque de gel matinal jeudi (min 2°C). Protégez les cultures maraîchères. Pluies faibles prévues samedi — idéal pour les semailles.</span></div>
+                <div class="alerte-bandeau prix"><i class="fa-solid fa-coins"></i> <span data-i18n="alertes.prix"><strong>Prix au souk de Benguerir (jeudi) :</strong> Mouton Sardi : 65-75 DH/kg vif. Blé tendre : 320 DH/quintal. Orge : 240 DH/quintal.</span></div>
+                <div class="alerte-bandeau"><i class="fa-solid fa-tint"></i> <span data-i18n="alertes.eau"><strong>Eau :</strong> Coupure d'eau prévue mercredi 8h-14h sur le centre pour maintenance du réseau. Prévoyez des réserves.</span></div>
+                <p class="text-center mt-2" style="font-size:0.75rem;color:var(--texte-clair)" data-i18n="alertes.maj">⚠️ Ces alertes sont mises à jour automatiquement depuis des sources fiables. Dernière actualisation : aujourd'hui.</p>
+            </div>
+        </section>
+
+        <section class="section section-alt" id="decouvrir">
+            <div class="conteneur">
+                <div class="section-titre"><h2 data-i18n="decouvrir.titre">Découvrir la Commune</h2><p class="sous-titre" data-i18n="decouvrir.sousTitre">Histoire, géographie et douars — machiakha d'El Bahira</p></div>
+                <p style="max-width:700px;margin:0 auto 32px;text-align:center;color:var(--texte-medium);font-size:0.9rem" data-i18n="decouvrir.intro">Rattachée à la <strong>machiakha d'El Bahira</strong>, la commune regroupe 9 douars principaux et leurs extensions (Azbane).</p>
+                <div class="grille-cartes" id="grilleDouars"></div>
+            </div>
+        </section>
+
+        <section class="section" id="annuaire">
+            <div class="conteneur">
+                <div class="section-titre"><h2 data-i18n="annuaire.titre">Annuaire des Professionnels</h2><p class="sous-titre" data-i18n="annuaire.sousTitre">Artisans et prestataires locaux</p></div>
+                <div class="grille-pros" id="conteneurPros"></div>
+            </div>
+        </section>
+
+        <section class="section section-alt" id="agriculture">
+            <div class="conteneur">
+                <div class="section-titre"><h2 data-i18n="agriculture.titre">Agriculture & Élevage</h2><p class="sous-titre" data-i18n="agriculture.sousTitre">Conseils pratiques et simulateur de pompage solaire</p></div>
+                <div class="grille-agri" id="grilleAgri"></div>
+                <div class="simulateur-box" style="margin-top:40px">
+                    <h3 style="text-align:center;margin-bottom:8px"><i class="fa-solid fa-solar-panel"></i> <span data-i18n="simulateur.titre">Simulateur de Pompe Solaire</span></h3>
+                    <p style="text-align:center;font-size:0.8rem;color:var(--texte-clair)" data-i18n="simulateur.desc">Estimez la puissance nécessaire pour votre puits</p>
+                    <label for="profondeur" data-i18n="simulateur.profondeur">Profondeur du puits (mètres)</label>
+                    <input type="number" id="profondeur" value="30" min="5" max="200">
+                    <label for="debit" data-i18n="simulateur.debit">Débit souhaité (m³ par jour)</label>
+                    <input type="number" id="debit" value="20" min="1" max="100">
+                    <label for="ensoleillement" data-i18n="simulateur.ensoleillement">Ensoleillement moyen (heures/jour)</label>
+                    <select id="ensoleillement">
+                        <option value="5" data-i18n="simulateur.hiver">5 h (hiver)</option>
+                        <option value="6" selected data-i18n="simulateur.moyenne">6 h (moyenne)</option>
+                        <option value="7" data-i18n="simulateur.ete">7 h (été)</option>
+                    </select>
+                    <button class="btn-simuler" id="btnSimuler"><span data-i18n="simulateur.btn">Calculer la puissance</span> <i class="fa-solid fa-calculator"></i></button>
+                    <div class="resultat" id="resultatSimu"><span data-i18n="simulateur.resultat">Puissance recommandée :</span> <strong>-- W</strong></div>
+                    <p style="font-size:0.7rem;color:var(--texte-clair);margin-top:8px" data-i18n="simulateur.formule">🔹 Formule indicative : P (W) = (débit × profondeur × 2.725) / ensoleillement. Consultez un spécialiste pour un dimensionnement précis.</p>
+                </div>
+                <div style="margin-top:24px">
+                    <h4 style="margin-bottom:12px"><i class="fa-solid fa-address-book"></i> <span data-i18n="solaire.titre">Contacts spécialisés en pompage solaire</span></h4>
+                    <div class="grille-pros" id="conteneurSolaire"></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="transport">
+            <div class="conteneur">
+                <div class="section-titre"><h2 data-i18n="transport.titre">Transport & Mobilité</h2><p class="sous-titre" data-i18n="transport.sousTitre">Grands taxis, transport scolaire et covoiturage</p></div>
+                <div class="grille-transport" id="conteneurTransport"></div>
+                <div style="margin-top:28px;background:var(--blanc);border-radius:var(--rayon-carte);padding:20px;box-shadow:var(--ombre-douce)">
+                    <h4 style="margin-bottom:12px"><i class="fa-solid fa-car-side"></i> <span data-i18n="covoiturage.titre">Annonces de Covoiturage</span></h4>
+                    <p style="font-size:0.8rem;color:var(--texte-clair)" data-i18n="covoiturage.ann1">📌 <strong>Lundi 4 juin :</strong> Départ Ouled Imloul → Marrakech à 6h30, 2 places. Contact : 06 XX XX XX XX</p>
+                    <p style="font-size:0.8rem;color:var(--texte-clair)" data-i18n="covoiturage.ann2">📌 <strong>Vendredi 8 juin :</strong> Départ Benguerir → Ouled Imloul à 17h, 3 places. Contact : 06 XX XX XX XX</p>
+                    <p class="text-center mt-2"><a href="#contact" style="color:var(--terre-cuite);font-weight:600;text-decoration:underline" data-i18n="covoiturage.lien">Déposez votre annonce via le formulaire de contact</a></p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section section-alt" id="demarches">
+            <div class="conteneur">
+                <div class="section-titre"><h2 data-i18n="demarches.titre">Guide des Démarches</h2><p class="sous-titre" data-i18n="demarches.sousTitre">Quels papiers apporter ? Jours de présence des agents</p></div>
+                <div id="accordeonDemarches"></div>
+            </div>
+        </section>
+
+        <section class="section" id="services">
+            <div class="conteneur">
+                <div class="section-titre"><h2 data-i18n="services.titre">Établissements & Services</h2><p class="sous-titre" data-i18n="services.sousTitre">Horaires et jours de souk</p></div>
+                <div class="liste-etablissements" id="listeEtablissements"></div>
+            </div>
+        </section>
+
+        <section class="section section-alt" id="urgences">
+            <div class="conteneur">
+                <div class="section-titre"><h2 data-i18n="urgences.titre">🚨 Urgences & Pharmacie de Garde</h2><p class="sous-titre" data-i18n="urgences.sousTitre">Numéros essentiels et pharmacie la plus proche</p></div>
+                <div class="liste-etablissements" id="listeUrgences"></div>
+                <div class="alerte-bandeau" style="background:#fde8e8;color:var(--rouge-urgence);margin-top:20px">
+                    <i class="fa-solid fa-phone-volume"></i>
+                    <span data-i18n="urgences.bandeau"><strong>En cas d'urgence vitale :</strong> Appelez le 15 (SAMU) ou le 19 (Gendarmerie). Pharmacie de garde à Benguerir ce soir : <strong>Pharmacie Al Amal</strong> — 0524 XX XX XX</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="contact">
+            <div class="conteneur">
+                <div class="section-titre"><h2 data-i18n="contact.titre">Contact & Localisation</h2></div>
+                <div class="contact-grid">
+                    <div class="carte-maps"><iframe src="https://www.google.com/maps?q=Ouled+Imloul+Rehamna+Maroc&output=embed" loading="lazy" title="Carte"></iframe></div>
+                    <form class="formulaire-contact" id="formContact">
+                        <h3 data-i18n="contact.formTitre">Envoyez-nous un message</h3>
+                        <div class="form-groupe"><label for="nom" data-i18n="contact.nom">Nom</label><input id="nom" required></div>
+                        <div class="form-groupe"><label for="email" data-i18n="contact.email">Email</label><input type="email" id="email" required></div>
+                        <div class="form-groupe"><label for="sujet" data-i18n="contact.sujet">Sujet</label><input id="sujet"></div>
+                        <div class="form-groupe"><label for="message" data-i18n="contact.message">Message</label><textarea id="message" required></textarea></div>
+                        <button type="submit" class="btn-envoyer"><i class="fa-solid fa-paper-plane"></i> <span data-i18n="contact.envoyer">Envoyer</span></button>
+                        <div class="message-succes" id="messageSucces" data-i18n="contact.succes">✅ Message envoyé avec succès !</div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <div class="footer-col"><h4 data-i18n="footer.commune">Commune</h4><ul><li><a href="#accueil" data-i18n="nav.accueil">Accueil</a></li><li><a href="#decouvrir" data-i18n="nav.decouvrir">Découvrir</a></li><li><a href="#transport" data-i18n="nav.transport">Transport</a></li></ul></div>
+            <div class="footer-col"><h4 data-i18n="footer.utiles">Utiles</h4><ul><li><a href="#demarches" data-i18n="nav.demarches">Démarches</a></li><li><a href="#urgences" data-i18n="nav.urgences">Urgences</a></li><li><a href="#contact" data-i18n="nav.contact">Contact</a></li></ul></div>
+            <div class="footer-col"><h4 data-i18n="footer.contact">Contact</h4><ul><li>Centre Ouled Imloul, Rehamna</li><li>+212 (0)5 XX XX XX XX</li></ul></div>
+        </div>
+        <div class="footer-bas" data-i18n="footer.copyright">&copy; 2026 Commune Rurale Ouled Imloul – Tous droits réservés.</div>
+    </footer>
+    <button class="btn-remonter" id="btnRemonter"><i class="fa-solid fa-chevron-up"></i></button>
+
+    <script>
+        (function(){
+            // ========== TRADUCTIONS ==========
+            const i18n = {
+                fr: {
+                    header: { logo: 'Commune Ouled Imloul', province: 'Province de Rehamna' },
+                    nav: { accueil: 'Accueil', decouvrir: 'Découvrir', annuaire: 'Annuaire', agriculture: 'Agriculture', transport: 'Transport', demarches: 'Démarches', urgences: 'Urgences', contact: 'Contact' },
+                    hero: { badge: 'Bienvenue', titre: 'Bienvenue à <span>Ouled Imloul</span>', accroche: 'Au cœur de la province de Rehamna, notre commune allie traditions agricoles, solidarité rurale et développement local.', btn: 'Découvrir nos services <i class="fa-solid fa-arrow-right"></i>' },
+                    alertes: { titre: '📢 Alertes & Informations', sousTitre: 'Météo agricole, prix du bétail, avis importants', meteo: '<strong>Météo 3 jours :</strong> Risque de gel matinal jeudi (min 2°C). Protégez les cultures maraîchères. Pluies faibles prévues samedi — idéal pour les semailles.', prix: '<strong>Prix au souk de Benguerir (jeudi) :</strong> Mouton Sardi : 65-75 DH/kg vif. Blé tendre : 320 DH/quintal. Orge : 240 DH/quintal.', eau: '<strong>Eau :</strong> Coupure d\'eau prévue mercredi 8h-14h sur le centre pour maintenance du réseau. Prévoyez des réserves.', maj: '⚠️ Ces alertes sont mises à jour automatiquement depuis des sources fiables. Dernière actualisation : aujourd\'hui.' },
+                    decouvrir: { titre: 'Découvrir la Commune', sousTitre: 'Histoire, géographie et douars — machiakha d\'El Bahira', intro: 'Rattachée à la <strong>machiakha d\'El Bahira</strong>, la commune regroupe 9 douars principaux et leurs extensions (Azbane).' },
+                    annuaire: { titre: 'Annuaire des Professionnels', sousTitre: 'Artisans et prestataires locaux' },
+                    agriculture: { titre: 'Agriculture & Élevage', sousTitre: 'Conseils pratiques et simulateur de pompage solaire' },
+                    simulateur: { titre: 'Simulateur de Pompe Solaire', desc: 'Estimez la puissance nécessaire pour votre puits', profondeur: 'Profondeur du puits (mètres)', debit: 'Débit souhaité (m³ par jour)', ensoleillement: 'Ensoleillement moyen (heures/jour)', hiver: '5 h (hiver)', moyenne: '6 h (moyenne)', ete: '7 h (été)', btn: 'Calculer la puissance', resultat: 'Puissance recommandée :', formule: '🔹 Formule indicative : P (W) = (débit × profondeur × 2.725) / ensoleillement. Consultez un spécialiste pour un dimensionnement précis.' },
+                    solaire: { titre: 'Contacts spécialisés en pompage solaire' },
+                    transport: { titre: 'Transport & Mobilité', sousTitre: 'Grands taxis, transport scolaire et covoiturage' },
+                    covoiturage: { titre: 'Annonces de Covoiturage', ann1: '📌 <strong>Lundi 4 juin :</strong> Départ Ouled Imloul → Marrakech à 6h30, 2 places. Contact : 06 XX XX XX XX', ann2: '📌 <strong>Vendredi 8 juin :</strong> Départ Benguerir → Ouled Imloul à 17h, 3 places. Contact : 06 XX XX XX XX', lien: 'Déposez votre annonce via le formulaire de contact' },
+                    demarches: { titre: 'Guide des Démarches', sousTitre: 'Quels papiers apporter ? Jours de présence des agents' },
+                    services: { titre: 'Établissements & Services', sousTitre: 'Horaires et jours de souk' },
+                    urgences: { titre: '🚨 Urgences & Pharmacie de Garde', sousTitre: 'Numéros essentiels et pharmacie la plus proche', bandeau: '<strong>En cas d\'urgence vitale :</strong> Appelez le 15 (SAMU) ou le 19 (Gendarmerie). Pharmacie de garde à Benguerir ce soir : <strong>Pharmacie Al Amal</strong> — 0524 XX XX XX' },
+                    contact: { titre: 'Contact & Localisation', formTitre: 'Envoyez-nous un message', nom: 'Nom', email: 'Email', sujet: 'Sujet', message: 'Message', envoyer: 'Envoyer', succes: '✅ Message envoyé avec succès !' },
+                    footer: { commune: 'Commune', utiles: 'Utiles', contact: 'Contact', copyright: '&copy; 2026 Commune Rurale Ouled Imloul – Tous droits réservés.' }
+                },
+                ar: {
+                    header: { logo: 'جماعة أولاد املول', province: 'إقليم الرحامنة' },
+                    nav: { accueil: 'الرئيسية', decouvrir: 'اكتشف', annuaire: 'دليل المهنيين', agriculture: 'الفلاحة', transport: 'النقل', demarches: 'الإجراءات', urgences: 'الطوارئ', contact: 'اتصل بنا' },
+                    hero: { badge: 'مرحباً', titre: 'مرحباً بكم في <span>أولاد املول</span>', accroche: 'في قلب إقليم الرحامنة، تجمع جماعتنا بين التقاليد الفلاحية والتضامن القروي والتنمية المحلية.', btn: 'اكتشف خدماتنا <i class="fa-solid fa-arrow-right"></i>' },
+                    alertes: { titre: '📢 تنبيهات ومعلومات', sousTitre: 'الطقس الفلاحي، أسعار الماشية، إعلانات مهمة', meteo: '<strong>طقس 3 أيام:</strong> خطر صقيع صباح الخميس (أدنى 2°م). احموا الخضروات. أمطار ضعيفة متوقعة السبت — مثالية للبذر.', prix: '<strong>أسعار سوق بنجرير (الخميس):</strong> خروف سردي: 65-75 درهم/كغ حي. قمح طري: 320 درهم/قنطار. شعير: 240 درهم/قنطار.', eau: '<strong>ماء:</strong> انقطاع الماء الأربعاء 8-14 صباحاً بالمركز للصيانة. وفروا احتياطاتكم.', maj: '⚠️ يتم تحديث هذه التنبيهات تلقائياً من مصادر موثوقة. آخر تحديث: اليوم.' },
+                    decouvrir: { titre: 'اكتشف الجماعة', sousTitre: 'تاريخ، جغرافيا ودواوير — مشيخة البحيرة', intro: 'تابعة لـ<strong>مشيخة البحيرة</strong>، تضم الجماعة 9 دواوير رئيسية وامتداداتها (عزبان).' },
+                    annuaire: { titre: 'دليل المهنيين', sousTitre: 'حرفيون ومزودو خدمات محليون' },
+                    agriculture: { titre: 'الفلاحة وتربية الماشية', sousTitre: 'نصائح عملية ومحاكي المضخات الشمسية' },
+                    simulateur: { titre: 'محاكي المضخة الشمسية', desc: 'قدّر القدرة اللازمة لبئرك', profondeur: 'عمق البئر (متر)', debit: 'التدفق المطلوب (م³/يوم)', ensoleillement: 'متوسط الإشعاع الشمسي (ساعات/يوم)', hiver: '5 س (شتاء)', moyenne: '6 س (متوسط)', ete: '7 س (صيف)', btn: 'احسب القدرة', resultat: 'القدرة الموصى بها:', formule: '🔹 صيغة تقديرية: P (W) = (التدفق × العمق × 2.725) / الإشعاع. استشر مختصاً لتحديد دقيق.' },
+                    solaire: { titre: 'جهات اتصال مختصة في المضخات الشمسية' },
+                    transport: { titre: 'النقل والتنقل', sousTitre: 'سيارات الأجرة الكبيرة، النقل المدرسي وتقاسم السيارات' },
+                    covoiturage: { titre: 'إعلانات تقاسم السيارات', ann1: '📌 <strong>الاثنين 4 يونيو:</strong> انطلاق أولاد املول → مراكش 6:30 صباحاً، مقعدان. اتصل: 06 XX XX XX XX', ann2: '📌 <strong>الجمعة 8 يونيو:</strong> انطلاق بنجرير → أولاد املول 17:00، 3 مقاعد. اتصل: 06 XX XX XX XX', lien: 'أودع إعلانك عبر نموذج الاتصال' },
+                    demarches: { titre: 'دليل الإجراءات', sousTitre: 'ما الوثائق المطلوبة؟ أيام تواجد الأعوان' },
+                    services: { titre: 'المؤسسات والخدمات', sousTitre: 'أوقات العمل وأيام السوق' },
+                    urgences: { titre: '🚨 الطوارئ وصيدلية الحراسة', sousTitre: 'أرقام أساسية وأقرب صيدلية', bandeau: '<strong>في حالة طوارئ حيوية:</strong> اتصل بـ 15 (الإسعاف) أو 19 (الدرك). صيدلية الحراسة الليلة ببنجرير: <strong>صيدلية الأمل</strong> — 0524 XX XX XX' },
+                    contact: { titre: 'اتصل بنا والموقع', formTitre: 'أرسلوا لنا رسالة', nom: 'الاسم', email: 'البريد الإلكتروني', sujet: 'الموضوع', message: 'الرسالة', envoyer: 'إرسال', succes: '✅ تم إرسال رسالتك بنجاح!' },
+                    footer: { commune: 'الجماعة', utiles: 'مفيد', contact: 'اتصل', copyright: '&copy; 2026 جماعة أولاد املول – جميع الحقوق محفوظة.' }
+                }
+            };
+
+            let currentLang = localStorage.getItem('lang') || 'fr';
+            if (!['fr','ar'].includes(currentLang)) currentLang = 'fr';
+            document.documentElement.lang = currentLang;
+            document.documentElement.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
+            document.getElementById('btnFr').classList.toggle('active-lang', currentLang === 'fr');
+            document.getElementById('btnAr').classList.toggle('active-lang', currentLang === 'ar');
+
+            function applyTranslations(lang) {
+                document.querySelectorAll('[data-i18n]').forEach(el => {
+                    const key = el.getAttribute('data-i18n');
+                    const translation = key.split('.').reduce((o,i) => o?.[i], i18n[lang]);
+                    if (translation) el.innerHTML = translation;
+                });
+                // Update dynamic content
+                rendreDouars();
+                rendrePros();
+                rendreSolaire();
+                rendreTransport();
+                rendreDemarches();
+                rendreEtablissements();
+                rendreUrgences();
+                rendreAgri();
+                // Update simulateur placeholders
+                document.getElementById('resultatSimu').innerHTML = `${i18n[lang].simulateur.resultat} <strong>-- W</strong>`;
+            }
+
+            document.getElementById('btnFr').addEventListener('click', ()=> switchLang('fr'));
+            document.getElementById('btnAr').addEventListener('click', ()=> switchLang('ar'));
+
+            function switchLang(lang) {
+                currentLang = lang;
+                localStorage.setItem('lang', lang);
+                document.documentElement.lang = lang;
+                document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+                document.getElementById('btnFr').classList.toggle('active-lang', lang === 'fr');
+                document.getElementById('btnAr').classList.toggle('active-lang', lang === 'ar');
+                applyTranslations(lang);
+            }
+
+            // ========== DONNÉES BILINGUES ==========
+            const douarsData = [
+                { nomFr: 'Ouled Imloul Centre', nomAr: 'أولاد املول المركز', arabe: 'أولاد املول المركز', badgeFr: 'Chef-lieu', badgeAr: 'المركز', descFr: 'Siège de la commune, souk hebdomadaire.', descAr: 'مقر الجماعة، السوق الأسبوعي.', icone: 'fa-house-chimney', classe: 'terre' },
+                { nomFr: 'Douar Bghoula', nomAr: 'دوار البغولة', arabe: 'دوار البغولة', badgeFr: 'Douar', badgeAr: 'دوار', descFr: 'Avec Azbane Bghoula. Cultures céréalières.', descAr: 'مع عزبان البغولة. زراعة الحبوب.', icone: 'fa-tree', classe: 'vert' },
+                { nomFr: 'Ouled Ben Anou', nomAr: 'أولاد بنعنو', arabe: 'أولاد بنعنو', badgeFr: 'Douar', badgeAr: 'دوار', descFr: 'Avec Touiriza Ouled Ben Anou. Élevage ovin.', descAr: 'مع تويريزة أولاد بنعنو. تربية الأغنام.', icone: 'fa-sun', classe: 'terre' },
+                { nomFr: 'Ouled Arafat', nomAr: 'أولاد عرفة', arabe: 'أولاد عرفة', badgeFr: 'Douar', badgeAr: 'دوار', descFr: 'Avec Azbane Ouled Arafat. Puits traditionnels.', descAr: 'مع عزبان أولاد عرفة. آبار تقليدية.', icone: 'fa-water', classe: 'vert' },
+                { nomFr: 'Zaouiat Belguern', nomAr: 'زاوية بلكرن', arabe: 'زاوية بلكرن', badgeFr: 'Douar', badgeAr: 'دوار', descFr: 'Zaouïa historique, terres fertiles.', descAr: 'زاوية تاريخية، أراضٍ خصبة.', icone: 'fa-mosque', classe: 'terre' },
+                { nomFr: 'Nzalat Ouled Moussa', nomAr: 'نزالة أولاد موسى', arabe: 'نزالة أولاد موسى', badgeFr: 'Douar', badgeAr: 'دوار', descFr: 'Avec Azbane Ouled Moussa. Maraîchage.', descAr: 'مع عزبان أولاد موسى. زراعة الخضر.', icone: 'fa-seedling', classe: 'vert' },
+                { nomFr: 'Kaddour Ben Brik', nomAr: 'قدور بن بريك', arabe: 'قدور بن بريك', badgeFr: 'Douar', badgeAr: 'دوار', descFr: 'Élevage équin et ovin.', descAr: 'تربية الخيول والأغنام.', icone: 'fa-horse', classe: 'terre' },
+                { nomFr: 'Ouled Rahmoun', nomAr: 'أولاد رحمون', arabe: 'أولاد رحمون', badgeFr: 'Douar', badgeAr: 'دوار', descFr: 'Avec Azbane Ouled Rahmoun. Fourrage et lait.', descAr: 'مع عزبان أولاد رحمون. علف وحليب.', icone: 'fa-mound', classe: 'vert' },
+                { nomFr: 'Ouled Ahmed Ben Brahim', nomAr: 'أولاد أحمد بن ابراهيم', arabe: 'أولاد أحمد بن ابراهيم', badgeFr: 'Douar', badgeAr: 'دوار', descFr: 'Culture du blé, aviculture.', descAr: 'زراعة القمح، تربية الدواجن.', icone: 'fa-wheat-awn', classe: 'terre' }
+            ];
+
+            const prosData = [
+                { metierFr: 'Électricien', metierAr: 'كهربائي', nom: 'Ahmed El Amrani', douarFr: 'Ouled Imloul Centre', douarAr: 'أولاد املول المركز', tel: '+212612345678', icone: 'fa-bolt' },
+                { metierFr: 'Plombier', metierAr: 'سباك', nom: 'Hassan Ben Ali', douarFr: 'Bghoula', douarAr: 'البغولة', tel: '+212698765432', icone: 'fa-wrench' },
+                { metierFr: 'Maçon', metierAr: 'بناء', nom: 'Mohamed Oulad', douarFr: 'Ouled Ben Anou', douarAr: 'أولاد بنعنو', tel: '+212645678901', icone: 'fa-hard-hat' },
+                { metierFr: 'Menuisier', metierAr: 'نجار', nom: 'Youssef Ait Ben', douarFr: 'Zaouiat Belguern', douarAr: 'زاوية بلكرن', tel: '+212623456789', icone: 'fa-chair' },
+                { metierFr: 'Ferronnier', metierAr: 'حداد', nom: 'Brahim El Idrissi', douarFr: 'Ouled Arafat', douarAr: 'أولاد عرفة', tel: '+212655544332', icone: 'fa-hammer' },
+                { metierFr: 'Coiffeur', metierAr: 'حلاق', nom: 'Saïd Bensalem', douarFr: 'Nzalat Ouled Moussa', douarAr: 'نزالة أولاد موسى', tel: '+212677788899', icone: 'fa-scissors' },
+                { metierFr: 'Mécanicien', metierAr: 'ميكانيكي', nom: 'Abdelkader Rchid', douarFr: 'Kaddour Ben Brik', douarAr: 'قدور بن بريك', tel: '+212688899900', icone: 'fa-gear' },
+                { metierFr: 'Épicier', metierAr: 'بقال', nom: 'Fatima Zahra', douarFr: 'Centre', douarAr: 'المركز', tel: '+212600112233', icone: 'fa-basket-shopping' }
+            ];
+
+            const solaireData = [
+                { metierFr: 'Ingénieur solaire', metierAr: 'مهندس طاقة شمسية', nom: 'Société SunIrrig', douarFr: 'Benguerir', douarAr: 'بنجرير', tel: '+212666554433', icone: 'fa-solar-panel' },
+                { metierFr: 'Installateur pompes', metierAr: 'مركب مضخات', nom: 'EauTech Rehamna', douarFr: 'Benguerir', douarAr: 'بنجرير', tel: '+212677665544', icone: 'fa-water' },
+                { metierFr: 'Bureau d\'études', metierAr: 'مكتب دراسات', nom: 'AgriEnergia', douarFr: 'Marrakech', douarAr: 'مراكش', tel: '+212688776655', icone: 'fa-chart-line' }
+            ];
+
+            const transportData = [
+                { typeFr: 'Grand Taxi', typeAr: 'طاكسي كبير', destFr: 'Ouled Imloul → Benguerir', destAr: 'أولاد املول → بنجرير', tarifFr: '~15 DH/pers.', tarifAr: '~15 درهم/شخص', horaire: 'Départ toutes les 30 min (6h-19h)', horaireAr: 'انطلاق كل 30 د (6-19)', pointFr: 'Place du souk (centre)', pointAr: 'ساحة السوق (المركز)' },
+                { typeFr: 'Grand Taxi', typeAr: 'طاكسي كبير', destFr: 'Ouled Imloul → Marrakech', destAr: 'أولاد املول → مراكش', tarifFr: '~50 DH/pers.', tarifAr: '~50 درهم/شخص', horaire: 'Départs : 6h, 8h, 11h, 14h, 17h', horaireAr: 'انطلاق: 6،8،11،14،17', pointFr: 'Place du souk (centre)', pointAr: 'ساحة السوق (المركز)' },
+                { typeFr: 'Transport Scolaire', typeAr: 'نقل مدرسي', destFr: 'Douars → École Centre', destAr: 'دواوير → مدرسة المركز', tarifFr: '', tarifAr: '', horaire: 'Matin : 7h30 | Soir : 17h30', horaireAr: 'صباح: 7:30 | مساء: 17:30', pointFr: 'Arrêts : Bghoula, Ouled Ben Anou, Ouled Arafat', pointAr: 'توقف: البغولة، أولاد بنعنو، أولاد عرفة' },
+                { typeFr: 'Transport Scolaire', typeAr: 'نقل مدرسي', destFr: 'Douars éloignés → École', destAr: 'دواوير بعيدة → المدرسة', tarifFr: '', tarifAr: '', horaire: 'Matin : 7h00 | Soir : 18h00', horaireAr: 'صباح: 7:00 | مساء: 18:00', pointFr: 'Arrêts : Nzalat Ouled Moussa, Kaddour Ben Brik', pointAr: 'توقف: نزالة أولاد موسى، قدور بن بريك' }
+            ];
+
+            const demarchesData = [
+                { titreFr: '📄 Extrait d\'acte de naissance', titreAr: '📄 نسخة عقد الازدياد', contenuFr: '<strong>Pièces à fournir :</strong><br>• Copie du livret de famille<br>• Justificatif de domicile<br>• 2 photos d\'identité<br>• Timbre fiscal (10 DH)<br><br><strong>Jours de présence :</strong> Lundi au Jeudi, 9h-14h. Délai : 24 à 48h.', contenuAr: '<strong>الوثائق المطلوبة:</strong><br>• نسخة من دفتر العائلة<br>• إثبات السكن<br>• صورتان شمسيتان<br>• طابع جبائي (10 دراهم)<br><br><strong>أيام التواجد:</strong> الاثنين إلى الخميس، 9-14. المدة: 24 إلى 48 ساعة.' },
+                { titreFr: '✍️ Légalisation de signatures (Mokataa)', titreAr: '✍️ تصحيح الإمضاءات (المقاطعة)', contenuFr: '<strong>Pièces à fournir :</strong><br>• Document original à légaliser<br>• Carte d\'identité nationale<br>• Présence obligatoire du signataire<br><br><strong>Jours :</strong> Mardi et Jeudi, 9h-12h. Gratuit.', contenuAr: '<strong>الوثائق:</strong><br>• الوثيقة الأصلية للمصادقة<br>• البطاقة الوطنية<br>• حضور صاحب الإمضاء إلزامي<br><br><strong>الأيام:</strong> الثلاثاء والخميس، 9-12. مجاني.' },
+                { titreFr: '🌾 Subventions agricoles', titreAr: '🌾 الدعم الفلاحي', contenuFr: '<strong>Pièces :</strong><br>• Demande manuscrite<br>• Copie CIN<br>• Attestation de propriété ou location<br>• RIB<br><br><strong>Bureau :</strong> DPA Benguerir. Renseignez-vous d\'abord au siège communal.', contenuAr: '<strong>الوثائق:</strong><br>• طلب خطي<br>• نسخة من البطاقة<br>• شهادة ملكية أو كراء<br>• رقم الحساب البنكي<br><br><strong>المكتب:</strong> المديرية الفلاحية ببنجرير. استعلموا أولاً بالجماعة.' },
+                { titreFr: '🆔 Registre National de la Population (RNP)', titreAr: '🆔 السجل الوطني للسكان', contenuFr: '<strong>Pour l\'inscription :</strong><br>• Livret de famille<br>• Copies CIN des parents<br>• Carnet de santé de l\'enfant<br><br>Permanence le mercredi au siège communal.', contenuAr: '<strong>للتسجيل:</strong><br>• دفتر العائلة<br>• نسخ بطاقة الوالدين<br>• دفتر صحة الطفل<br><br>المداومة يوم الأربعاء بمقر الجماعة.' }
+            ];
+
+            const etabsData = [
+                { icone: 'fa-building-columns', nomFr: 'Siège de la Commune', nomAr: 'مقر الجماعة', descFr: 'Centre Ouled Imloul', descAr: 'مركز أولاد املول', badge: 'Lun-Ven : 8h30–16h30', badgeAr: 'الاثنين-الجمعة: 8:30–16:30', classe: 'horaire' },
+                { icone: 'fa-school', nomFr: 'École Primaire', nomAr: 'المدرسة الابتدائية', descFr: 'Centre & douars', descAr: 'المركز والدواوير', badge: 'Lun-Sam : 8h–17h30', badgeAr: 'الاثنين-السبت: 8–17:30', classe: 'horaire' },
+                { icone: 'fa-stethoscope', nomFr: 'Dispensaire de Santé', nomAr: 'المستوصف الصحي', descFr: 'Centre', descAr: 'المركز', badge: 'Lun-Ven : 8h30–15h', badgeAr: 'الاثنين-الجمعة: 8:30–15', classe: 'horaire' },
+                { icone: 'fa-store', nomFr: 'Souk Hebdomadaire', nomAr: 'السوق الأسبوعي', descFr: 'Place du marché', descAr: 'ساحة السوق', badge: 'Tous les jeudis', badgeAr: 'كل خميس', classe: 'souk' },
+                { icone: 'fa-envelope', nomFr: 'Bureau du Caïdat', nomAr: 'مكتب القيادة', descFr: 'Près du siège', descAr: 'قرب المقر', badge: 'Lun-Ven : 9h–14h', badgeAr: 'الاثنين-الجمعة: 9–14', classe: 'horaire' },
+                { icone: 'fa-mosque', nomFr: 'Mosquée Principale', nomAr: 'المسجد الرئيسي', descFr: 'Centre', descAr: 'المركز', badge: '5 prières', badgeAr: '5 صلوات', classe: 'horaire' }
+            ];
+
+            const urgencesData = [
+                { icone: 'fa-shield-halved', nomFr: 'Gendarmerie Royale', nomAr: 'الدرك الملكي', descFr: 'Benguerir (secteur Ouled Imloul)', descAr: 'بنجرير (قطاع أولاد املول)', badge: 'Tél : 19 ou 0524 XX XX XX', badgeAr: 'الهاتف: 19 أو 0524 XX XX XX', classe: 'urgence' },
+                { icone: 'fa-truck-medical', nomFr: 'Ambulance Communale', nomAr: 'الإسعاف الجماعي', descFr: 'Centre Ouled Imloul', descAr: 'مركز أولاد املول', badge: 'Tél : 06 XX XX XX XX', badgeAr: 'الهاتف: 06 XX XX XX XX', classe: 'urgence' },
+                { icone: 'fa-hospital', nomFr: 'Hôpital Provincial', nomAr: 'المستشفى الإقليمي', descFr: 'Benguerir', descAr: 'بنجرير', badge: 'Tél : 0524 XX XX XX', badgeAr: 'الهاتف: 0524 XX XX XX', classe: 'urgence' },
+                { icone: 'fa-capsules', nomFr: 'Pharmacie de Garde', nomAr: 'صيدلية الحراسة', descFr: 'Benguerir (nuit & week-end)', descAr: 'بنجرير (ليل وعطلة)', badge: 'Voir bandeau alerte', badgeAr: 'انظر شريط التنبيه', classe: 'urgence' }
+            ];
+
+            function rendreDouars() {
+                const cont = document.getElementById('grilleDouars');
+                cont.innerHTML = '';
+                douarsData.forEach(d => {
+                    const nom = currentLang === 'ar' ? d.nomAr : d.nomFr;
+                    const badge = currentLang === 'ar' ? d.badgeAr : d.badgeFr;
+                    const desc = currentLang === 'ar' ? d.descAr : d.descFr;
+                    const c = document.createElement('div'); c.className = 'carte';
+                    c.innerHTML = `<div class="carte-icone ${d.classe}"><i class="fa-solid ${d.icone}"></i></div><h3>${nom}</h3><span class="nom-arabe">${d.arabe}</span><span class="badge-douar">${badge}</span><p>${desc}</p>`;
+                    cont.appendChild(c);
+                });
+            }
+
+            function rendrePros() {
+                const cont = document.getElementById('conteneurPros');
+                cont.innerHTML = '';
+                prosData.forEach(p => {
+                    const metier = currentLang === 'ar' ? p.metierAr : p.metierFr;
+                    const douar = currentLang === 'ar' ? p.douarAr : p.douarFr;
+                    const c = document.createElement('div'); c.className = 'carte-pro';
+                    c.innerHTML = `<span class="metier-icone"><i class="fa-solid ${p.icone}"></i></span><span class="metier-nom">${metier}</span><span class="pro-nom">${p.nom}</span><span class="pro-douar"><i class="fa-solid fa-map-pin"></i> ${douar}</span><a href="tel:${p.tel}" class="btn-appeler"><i class="fa-solid fa-phone"></i> ${currentLang==='ar'?'اتصل':'Appeler'}</a>`;
+                    cont.appendChild(c);
+                });
+            }
+
+            function rendreSolaire() {
+                const cont = document.getElementById('conteneurSolaire');
+                cont.innerHTML = '';
+                solaireData.forEach(p => {
+                    const metier = currentLang === 'ar' ? p.metierAr : p.metierFr;
+                    const douar = currentLang === 'ar' ? p.douarAr : p.douarFr;
+                    const c = document.createElement('div'); c.className = 'carte-pro'; c.style.borderLeftColor = 'var(--terre-cuite)';
+                    c.innerHTML = `<span class="metier-icone"><i class="fa-solid ${p.icone}"></i></span><span class="metier-nom">${metier}</span><span class="pro-nom">${p.nom}</span><span class="pro-douar"><i class="fa-solid fa-map-pin"></i> ${douar}</span><a href="tel:${p.tel}" class="btn-appeler"><i class="fa-solid fa-phone"></i> ${currentLang==='ar'?'اتصل':'Appeler'}</a>`;
+                    cont.appendChild(c);
+                });
+            }
+
+            function rendreTransport() {
+                const cont = document.getElementById('conteneurTransport');
+                cont.innerHTML = '';
+                transportData.forEach(t => {
+                    const type = currentLang === 'ar' ? t.typeAr : t.typeFr;
+                    const dest = currentLang === 'ar' ? t.destAr : t.destFr;
+                    const tarif = currentLang === 'ar' ? (t.tarifAr || '') : (t.tarifFr || '');
+                    const horaire = currentLang === 'ar' ? t.horaireAr : t.horaire;
+                    const point = currentLang === 'ar' ? t.pointAr : t.pointFr;
+                    const c = document.createElement('div'); c.className = 'carte-pro'; c.style.borderLeftColor = 'var(--bleu-info)';
+                    c.innerHTML = `<span class="metier-icone" style="color:var(--bleu-info)"><i class="fa-solid ${type.includes('Scolaire')?'fa-bus':'fa-taxi'}"></i></span><span class="metier-nom">${type}</span><span class="pro-nom">${dest}</span>${tarif ? `<span class="pro-douar"><i class="fa-solid fa-money-bill"></i> ${tarif}</span>` : ''}<span class="pro-douar"><i class="fa-solid fa-clock"></i> ${horaire}</span><span class="pro-douar"><i class="fa-solid fa-location-dot"></i> ${point}</span>`;
+                    cont.appendChild(c);
+                });
+            }
+
+            function rendreDemarches() {
+                const cont = document.getElementById('accordeonDemarches');
+                cont.innerHTML = '';
+                demarchesData.forEach((d, i) => {
+                    const titre = currentLang === 'ar' ? d.titreAr : d.titreFr;
+                    const contenu = currentLang === 'ar' ? d.contenuAr : d.contenuFr;
+                    const div = document.createElement('div'); div.className = 'demarche-accordeon';
+                    div.innerHTML = `<button class="demarche-titre" data-id="dem${i}">${titre} <i class="fa-solid fa-chevron-down"></i></button><div class="demarche-contenu" id="contenu-dem${i}">${contenu}</div>`;
+                    cont.appendChild(div);
+                });
+                document.querySelectorAll('.demarche-titre').forEach(b => {
+                    b.addEventListener('click', function() {
+                        const contenu = document.getElementById('contenu-' + this.dataset.id);
+                        const ouvert = contenu.classList.contains('visible');
+                        document.querySelectorAll('.demarche-contenu').forEach(c => c.classList.remove('visible'));
+                        document.querySelectorAll('.demarche-titre').forEach(b => b.classList.remove('ouvert'));
+                        if (!ouvert) {
+                            contenu.classList.add('visible');
+                            this.classList.add('ouvert');
+                        }
+                    });
+                });
+            }
+
+            function rendreEtablissements() {
+                const cont = document.getElementById('listeEtablissements');
+                cont.innerHTML = '';
+                etabsData.forEach(e => {
+                    const nom = currentLang === 'ar' ? e.nomAr : e.nomFr;
+                    const desc = currentLang === 'ar' ? e.descAr : e.descFr;
+                    const badge = currentLang === 'ar' ? e.badgeAr : e.badge;
+                    const c = document.createElement('div'); c.className = 'carte-etab';
+                    c.innerHTML = `<div class="etab-icone"><i class="fa-solid ${e.icone}"></i></div><div><h4>${nom}</h4><p>${desc}</p><span class="badge-${e.classe}"><i class="fa-regular fa-clock"></i> ${badge}</span></div>`;
+                    cont.appendChild(c);
+                });
+            }
+
+            function rendreUrgences() {
+                const cont = document.getElementById('listeUrgences');
+                cont.innerHTML = '';
+                urgencesData.forEach(u => {
+                    const nom = currentLang === 'ar' ? u.nomAr : u.nomFr;
+                    const desc = currentLang === 'ar' ? u.descAr : u.descFr;
+                    const badge = currentLang === 'ar' ? u.badgeAr : u.badge;
+                    const c = document.createElement('div'); c.className = 'carte-etab'; c.style.borderLeft = '4px solid var(--rouge-urgence)';
+                    c.innerHTML = `<div class="etab-icone" style="background:#fde8e8;color:var(--rouge-urgence)"><i class="fa-solid ${u.icone}"></i></div><div><h4>${nom}</h4><p>${desc}</p><span class="badge-urgence">${badge}</span></div>`;
+                    cont.appendChild(c);
+                });
+            }
+
+            function rendreAgri() {
+                const cont = document.getElementById('grilleAgri');
+                cont.innerHTML = '';
+                const articles = [
+                    { icone: '🐄', titreFr: 'Élevage Bovin', titreAr: 'تربية الأبقار', courtFr: 'Alimentation : Lorem ipsum dolor sit amet, consectetur adipiscing elit.', courtAr: 'التغذية: لوريم إيبسوم دولار سيت أميت.', longFr: 'Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', longAr: 'سيد دو إيوسمود tempor incididunt ut labore et dolore magna aliqua.' },
+                    { icone: '🐑', titreFr: 'Élevage Ovin', titreAr: 'تربية الأغنام', courtFr: 'Soins : Oves bene curatae lanam mollem et carnem sapidam praebent.', courtAr: 'العناية: الأغنام المعتنى بها تنتج صوفاً ناعماً ولحماً طيباً.', longFr: 'Duis aute irure dolor in reprehenderit.', longAr: 'دويش أوت إيرور دولار إن ريبريهنديريت.' },
+                    { icone: '🐔', titreFr: 'Aviculture', titreAr: 'تربية الدواجن', courtFr: 'Conseils : Gallinae sanae ova multa et carnem teneram familiae praestant.', courtAr: 'نصائح: الدجاج الصحي ينتج بيضاً كثيراً ولحماً طرياً للعائلة.', longFr: 'Ut enim ad minim veniam.', longAr: 'أوت إنيم أد مينيم فينيام.' }
+                ];
+                articles.forEach((a, i) => {
+                    const titre = currentLang === 'ar' ? a.titreAr : a.titreFr;
+                    const court = currentLang === 'ar' ? a.courtAr : a.courtFr;
+                    const long = currentLang === 'ar' ? a.longAr : a.longFr;
+                    const c = document.createElement('article'); c.className = 'carte-agri';
+                    c.innerHTML = `<span class="agri-icone">${a.icone}</span><h3>${titre}</h3><p>${court}</p><button class="lire-plus" data-id="agri${i}">${currentLang==='ar'?'اقرأ المزيد':'Lire la suite'} <i class="fa-solid fa-chevron-down"></i></button><div class="contenu-complet" id="contenu-agri${i}"><p>${long}</p></div>`;
+                    cont.appendChild(c);
+                });
+                document.querySelectorAll('.lire-plus').forEach(b => b.addEventListener('click', function() {
+                    const cible = document.getElementById('contenu-' + this.dataset.id);
+                    const v = cible.classList.toggle('visible');
+                    this.innerHTML = v ? (currentLang==='ar'?'إخفاء':'Réduire') + ' <i class="fa-solid fa-chevron-up"></i>' : (currentLang==='ar'?'اقرأ المزيد':'Lire la suite') + ' <i class="fa-solid fa-chevron-down"></i>';
+                }));
+            }
+
+            // Initial rendering
+            applyTranslations(currentLang);
+
+            // Menu mobile
+            const btnMenu = document.getElementById('btnMenu'), navMobile = document.getElementById('navMobile');
+            let ouvert = false;
+            btnMenu.addEventListener('click', () => {
+                ouvert = !ouvert;
+                navMobile.classList.toggle('actif', ouvert);
+                btnMenu.classList.toggle('ouvert', ouvert);
+                document.body.style.overflow = ouvert ? 'hidden' : '';
+            });
+            navMobile.querySelectorAll('a').forEach(l => l.addEventListener('click', () => {
+                ouvert = false; navMobile.classList.remove('actif'); btnMenu.classList.remove('ouvert'); document.body.style.overflow = '';
+            }));
+
+            // Bouton remonter
+            const btnRemonter = document.getElementById('btnRemonter');
+            window.addEventListener('scroll', () => requestAnimationFrame(() => btnRemonter.classList.toggle('visible', window.scrollY > 400)));
+            btnRemonter.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+            // Simulateur
+            document.getElementById('btnSimuler').addEventListener('click', () => {
+                const prof = parseFloat(document.getElementById('profondeur').value) || 30;
+                const debit = parseFloat(document.getElementById('debit').value) || 20;
+                const ens = parseFloat(document.getElementById('ensoleillement').value) || 6;
+                const puissance = Math.round((debit * prof * 2.725) / ens);
+                document.getElementById('resultatSimu').innerHTML = `${i18n[currentLang].simulateur.resultat} <strong>${puissance} W</strong> (${currentLang==='ar'?'ألواح':'panneaux'} ~${Math.ceil(puissance/300)} × 300W)`;
+            });
+
+            // Formulaire
+            document.getElementById('formContact').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const msg = document.getElementById('messageSucces');
+                msg.classList.add('visible');
+                this.reset();
+                setTimeout(() => msg.classList.remove('visible'), 4000);
+            });
+
+            // Lien actif nav
+            const sections = document.querySelectorAll('section[id]'), liens = document.querySelectorAll('.nav-principale a, .nav-mobile a');
+            window.addEventListener('scroll', () => {
+                let act = 'accueil';
+                sections.forEach(s => { if (window.scrollY >= s.offsetTop - 120) act = s.id; });
+                liens.forEach(l => l.classList.toggle('actif', l.getAttribute('href') === '#' + act));
+            });
+
+        })();
+    </script>
+</body>
+</html>
+```
