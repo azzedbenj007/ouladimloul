@@ -106,6 +106,34 @@ header{
 
 .burger{display:none;background:none;border:none;font-size:1.5rem;color:var(--texte);cursor:pointer;padding:6px}
 
+/* Sélecteur de langue */
+.nav-right{display:flex;align-items:center;gap:10px}
+.lang-switch{display:flex;background:var(--terre-clair);border-radius:50px;padding:3px;gap:2px}
+.lang-switch button{
+  border:none;background:none;cursor:pointer;font-family:'Outfit',sans-serif;
+  font-weight:600;font-size:.82rem;padding:6px 14px;border-radius:50px;
+  color:var(--terre-fonce);transition:var(--transition);
+}
+.lang-switch button.actif{background:var(--terre-fonce);color:#fff}
+
+/* ============================================================
+   MODE ARABE (RTL)
+   ============================================================ */
+html[dir="rtl"]{direction:rtl}
+html[dir="rtl"] body{font-family:'Outfit','Segoe UI',Tahoma,sans-serif}
+html[dir="rtl"] .ar{direction:rtl}
+html[dir="rtl"] .nav-links{flex-direction:row}
+html[dir="rtl"] .pro-douar,html[dir="rtl"] .coord,html[dir="rtl"] .covoit-card .meta{flex-direction:row}
+html[dir="rtl"] .demarche-btn{text-align:right}
+html[dir="rtl"] .demarche-inner li{padding:6px 26px 6px 0}
+html[dir="rtl"] .demarche-inner li::before{left:auto;right:0}
+html[dir="rtl"] .alerte-card,html[dir="rtl"] .transport .pro-card,html[dir="rtl"] .solaire-pro .pro-card{border-left:none;border-right:5px solid}
+html[dir="rtl"] .footer-col a .fa-chevron-right{transform:scaleX(-1)}
+@media (max-width:768px){
+  html[dir="rtl"] .nav-links{right:auto;left:0;transform:translateX(-100%);box-shadow:10px 0 40px rgba(0,0,0,.12)}
+  html[dir="rtl"] .nav-links.ouvert{transform:translateX(0)}
+}
+
 /* ============================================================
    HÉRO
    ============================================================ */
@@ -399,68 +427,50 @@ footer{background:var(--texte);color:#d8cdbd;padding:60px 0 28px}
     <a href="#accueil" class="logo">
       <div class="badge-oi">OI</div>
       <div class="txt">
-        <strong>Commune Ouled Imloul</strong>
-        <span>Province de Rehamna</span>
+        <strong data-fr="Commune Ouled Imloul" data-ar="جماعة أولاد املول">Commune Ouled Imloul</strong>
+        <span data-fr="Province de Rehamna" data-ar="إقليم الرحامنة">Province de Rehamna</span>
       </div>
     </a>
     <nav>
       <ul class="nav-links" id="navLinks">
-        <li><a href="#accueil">Accueil</a></li>
-        <li><a href="#decouvrir">Découvrir</a></li>
-        <li><a href="#annuaire">Annuaire</a></li>
-        <li><a href="#agriculture">Agriculture</a></li>
-        <li><a href="#transport">Transport</a></li>
-        <li><a href="#demarches">Démarches</a></li>
-        <li><a href="#urgences">Urgences</a></li>
-        <li><a href="#contact">Contact</a></li>
+        <li><a href="#accueil" data-fr="Accueil" data-ar="الرئيسية">Accueil</a></li>
+        <li><a href="#decouvrir" data-fr="Découvrir" data-ar="اكتشف">Découvrir</a></li>
+        <li><a href="#annuaire" data-fr="Annuaire" data-ar="الدليل">Annuaire</a></li>
+        <li><a href="#agriculture" data-fr="Agriculture" data-ar="الفلاحة">Agriculture</a></li>
+        <li><a href="#transport" data-fr="Transport" data-ar="النقل">Transport</a></li>
+        <li><a href="#demarches" data-fr="Démarches" data-ar="المساطر">Démarches</a></li>
+        <li><a href="#urgences" data-fr="Urgences" data-ar="الطوارئ">Urgences</a></li>
+        <li><a href="#contact" data-fr="Contact" data-ar="اتصل بنا">Contact</a></li>
       </ul>
     </nav>
-    <button class="burger" id="burger" aria-label="Menu"><i class="fas fa-bars"></i></button>
+    <div class="nav-right">
+      <div class="lang-switch" id="langSwitch">
+        <button data-lang="fr" class="actif">FR</button>
+        <button data-lang="ar">ع</button>
+      </div>
+      <button class="burger" id="burger" aria-label="Menu"><i class="fas fa-bars"></i></button>
+    </div>
   </div>
 </header>
 
 <!-- ============================== HÉRO ============================== -->
 <section class="hero" id="accueil">
   <div class="container hero-inner">
-    <span class="pill"><i class="fas fa-hand-sparkles"></i> Bienvenue</span>
-    <h1>Bienvenue à <em>Ouled Imloul</em></h1>
-    <p>Le portail de notre commune rurale au cœur de la province de Rehamna : services, annuaire, agriculture, transport et démarches au service des habitants, de la diaspora et des visiteurs.</p>
-    <a href="#services" class="btn btn-primaire">Découvrir nos services <i class="fas fa-arrow-down"></i></a>
+    <span class="pill"><i class="fas fa-hand-sparkles"></i> <span data-fr="Bienvenue" data-ar="مرحباً">Bienvenue</span></span>
+    <h1 data-fr-html='Bienvenue à <em>Ouled Imloul</em>' data-ar-html='مرحباً بكم في <em>أولاد املول</em>'>Bienvenue à <em>Ouled Imloul</em></h1>
+    <p data-fr="Le portail de notre commune rurale au cœur de la province de Rehamna : services, annuaire, agriculture, transport et démarches au service des habitants, de la diaspora et des visiteurs." data-ar="بوابة جماعتنا القروية في قلب إقليم الرحامنة: خدمات، دليل، فلاحة، نقل ومساطر في خدمة الساكنة والجالية والزوار.">Le portail de notre commune rurale au cœur de la province de Rehamna : services, annuaire, agriculture, transport et démarches au service des habitants, de la diaspora et des visiteurs.</p>
+    <a href="#services" class="btn btn-primaire"><span data-fr="Découvrir nos services" data-ar="اكتشف خدماتنا">Découvrir nos services</span> <i class="fas fa-arrow-down"></i></a>
   </div>
 </section>
 
-<!-- ============================== ALERTES ============================== -->
-<section class="alertes">
-  <div class="container">
-    <div class="titre-section">
-      <span class="kicker">Infos du jour</span>
-      <h2>Alertes & <em>Informations</em></h2>
-    </div>
-    <div class="alertes-grid">
-      <div class="alerte-card al-meteo">
-        <div class="ico"><i class="fas fa-cloud-showers-heavy"></i></div>
-        <div><h4>Météo</h4><p>Risque de gel matinal cette semaine. Pluies attendues jeudi et vendredi — protégez les jeunes plants.</p></div>
-      </div>
-      <div class="alerte-card al-prix">
-        <div class="ico"><i class="fas fa-tag"></i></div>
-        <div><h4>Prix du marché</h4><p>Mouton Sardi : 65–75 DH/kg · Blé : 320 DH/q · Orge : 240 DH/q.</p></div>
-      </div>
-      <div class="alerte-card al-eau">
-        <div class="ico"><i class="fas fa-faucet-drip"></i></div>
-        <div><h4>Eau potable</h4><p>Coupure prévue mardi de 9h à 14h dans le secteur du centre. Pensez à stocker.</p></div>
-      </div>
-    </div>
-    <p class="maj-note">Dernière mise à jour : aujourd'hui</p>
-  </div>
-</section>
 
 <!-- ============================== DÉCOUVRIR / DOUARS ============================== -->
 <section class="decouvrir" id="decouvrir">
   <div class="container">
     <div class="titre-section">
-      <span class="kicker">Notre territoire</span>
-      <h2>Découvrir la <em>Commune</em> & ses Douars</h2>
-      <p>La commune rurale d'Ouled Imloul est rattachée à la machiakha d'El Bahira. Elle regroupe neuf douars officiels, certains accompagnés de leurs extensions (Azbane).</p>
+      <span class="kicker" data-fr="Notre territoire" data-ar="مجالنا الترابي">Notre territoire</span>
+      <h2 data-fr-html="Découvrir la <em>Commune</em> &amp; ses Douars" data-ar-html="اكتشف <em>الجماعة</em> ودواويرها">Découvrir la <em>Commune</em> & ses Douars</h2>
+      <p data-fr="La commune rurale d'Ouled Imloul est rattachée à la machiakha d'El Bahira. Elle regroupe neuf douars officiels, certains accompagnés de leurs extensions (Azbane)." data-ar="تتبع الجماعة القروية أولاد املول لمشيخة البحيرة. وتضم تسعة دواوير رسمية، بعضها مرفوق بأزبانها.">La commune rurale d'Ouled Imloul est rattachée à la machiakha d'El Bahira. Elle regroupe neuf douars officiels, certains accompagnés de leurs extensions (Azbane).</p>
     </div>
     <div class="douars-grid" id="douarsGrid"></div>
   </div>
@@ -470,9 +480,9 @@ footer{background:var(--texte);color:#d8cdbd;padding:60px 0 28px}
 <section class="annuaire" id="annuaire" style="background:var(--blanc)">
   <div class="container">
     <div class="titre-section">
-      <span class="kicker">Services de proximité</span>
-      <h2>Annuaire des <em>Professionnels</em></h2>
-      <p>Trouvez et contactez en un clic les artisans et commerçants de la commune.</p>
+      <span class="kicker" data-fr="Services de proximité" data-ar="خدمات القرب">Services de proximité</span>
+      <h2 data-fr-html="Annuaire des <em>Professionnels</em>" data-ar-html="دليل <em>المهنيين</em>">Annuaire des <em>Professionnels</em></h2>
+      <p data-fr="Trouvez et contactez en un clic les artisans et commerçants de la commune." data-ar="ابحث وتواصل بنقرة واحدة مع حرفيي وتجار الجماعة.">Trouvez et contactez en un clic les artisans et commerçants de la commune.</p>
     </div>
     <div class="pros-grid" id="prosGrid"></div>
   </div>
@@ -482,9 +492,9 @@ footer{background:var(--texte);color:#d8cdbd;padding:60px 0 28px}
 <section class="agriculture" id="agriculture">
   <div class="container">
     <div class="titre-section">
-      <span class="kicker">Notre savoir-faire</span>
-      <h2>Agriculture & <em>Élevage</em></h2>
-      <p>Conseils, bonnes pratiques et outils pour les agriculteurs et éleveurs de la commune.</p>
+      <span class="kicker" data-fr="Notre savoir-faire" data-ar="خبرتنا">Notre savoir-faire</span>
+      <h2 data-fr-html="Agriculture &amp; <em>Élevage</em>" data-ar-html="الفلاحة و<em>تربية الماشية</em>">Agriculture & <em>Élevage</em></h2>
+      <p data-fr="Conseils, bonnes pratiques et outils pour les agriculteurs et éleveurs de la commune." data-ar="نصائح وممارسات جيدة وأدوات لفلاحي ومربي الجماعة.">Conseils, bonnes pratiques et outils pour les agriculteurs et éleveurs de la commune.</p>
     </div>
 
     <div class="conseils-grid">
@@ -513,36 +523,36 @@ footer{background:var(--texte);color:#d8cdbd;padding:60px 0 28px}
 
     <!-- Simulateur solaire -->
     <div class="simulateur">
-      <h3><i class="fas fa-solar-panel"></i> Simulateur de Pompage Solaire</h3>
-      <p class="sub">Estimez la puissance nécessaire et le nombre de panneaux pour votre puits.</p>
+      <h3><i class="fas fa-solar-panel"></i> <span data-fr="Simulateur de Pompage Solaire" data-ar="محاكي الضخ الشمسي">Simulateur de Pompage Solaire</span></h3>
+      <p class="sub" data-fr="Estimez la puissance nécessaire et le nombre de panneaux pour votre puits." data-ar="قدّر القدرة اللازمة وعدد الألواح لبئرك.">Estimez la puissance nécessaire et le nombre de panneaux pour votre puits.</p>
       <div class="sim-fields">
         <div>
-          <label for="profondeur">Profondeur du puits (m)</label>
+          <label for="profondeur" data-fr="Profondeur du puits (m)" data-ar="عمق البئر (م)">Profondeur du puits (m)</label>
           <input type="number" id="profondeur" min="1" placeholder="ex. 40" value="40">
         </div>
         <div>
-          <label for="debit">Débit souhaité (m³/jour)</label>
+          <label for="debit" data-fr="Débit souhaité (m³/jour)" data-ar="الصبيب المطلوب (م³/يوم)">Débit souhaité (m³/jour)</label>
           <input type="number" id="debit" min="1" placeholder="ex. 20" value="20">
         </div>
         <div>
-          <label for="ensoleillement">Ensoleillement moyen</label>
+          <label for="ensoleillement" data-fr="Ensoleillement moyen" data-ar="متوسط التشميس">Ensoleillement moyen</label>
           <select id="ensoleillement">
-            <option value="5">5 h/jour</option>
-            <option value="6" selected>6 h/jour</option>
-            <option value="7">7 h/jour</option>
+            <option value="5" data-fr="5 h/jour" data-ar="5 س/يوم">5 h/jour</option>
+            <option value="6" selected data-fr="6 h/jour" data-ar="6 س/يوم">6 h/jour</option>
+            <option value="7" data-fr="7 h/jour" data-ar="7 س/يوم">7 h/jour</option>
           </select>
         </div>
       </div>
-      <button class="btn btn-sim" id="calculSim"><i class="fas fa-calculator"></i> Calculer</button>
+      <button class="btn btn-sim" id="calculSim"><i class="fas fa-calculator"></i> <span data-fr="Calculer" data-ar="احسب">Calculer</span></button>
       <div class="sim-result" id="simResult">
-        <div>Puissance estimée :</div>
+        <div data-fr="Puissance estimée :" data-ar="القدرة المقدرة:">Puissance estimée :</div>
         <div class="big" id="simPuissance">— W</div>
         <div class="panneaux" id="simPanneaux"></div>
       </div>
     </div>
 
     <div class="titre-section" style="margin-bottom:32px">
-      <h2 style="font-size:1.6rem">Contacts <em>Pompage Solaire</em></h2>
+      <h2 style="font-size:1.6rem" data-fr-html="Contacts <em>Pompage Solaire</em>" data-ar-html="جهات <em>الضخ الشمسي</em>">Contacts <em>Pompage Solaire</em></h2>
     </div>
     <div class="pros-grid solaire-pro" id="solaireGrid"></div>
   </div>
@@ -552,32 +562,32 @@ footer{background:var(--texte);color:#d8cdbd;padding:60px 0 28px}
 <section class="transport" id="transport">
   <div class="container">
     <div class="titre-section">
-      <span class="kicker">Se déplacer</span>
-      <h2>Transport & <em>Mobilité</em></h2>
-      <p>Grands taxis, transport scolaire et covoiturage entre les douars.</p>
+      <span class="kicker" data-fr="Se déplacer" data-ar="التنقل">Se déplacer</span>
+      <h2 data-fr-html="Transport &amp; <em>Mobilité</em>" data-ar-html="النقل و<em>التنقل</em>">Transport & <em>Mobilité</em></h2>
+      <p data-fr="Grands taxis, transport scolaire et covoiturage entre les douars." data-ar="سيارات الأجرة الكبيرة والنقل المدرسي والتنقل المشترك بين الدواوير.">Grands taxis, transport scolaire et covoiturage entre les douars.</p>
     </div>
     <div class="pros-grid" id="transportGrid"></div>
 
     <div class="covoiturage">
       <div class="titre-section" style="margin-bottom:32px">
-        <h2 style="font-size:1.6rem">Annonces de <em>Covoiturage</em></h2>
+        <h2 style="font-size:1.6rem" data-fr-html="Annonces de <em>Covoiturage</em>" data-ar-html="إعلانات <em>التنقل المشترك</em>">Annonces de <em>Covoiturage</em></h2>
       </div>
       <div class="covoit-grid">
         <div class="covoit-card">
-          <div class="trajet"><i class="fas fa-route" style="color:var(--info)"></i> Ouled Imloul → Marrakech</div>
-          <div class="meta"><i class="fas fa-clock"></i> Tous les jours, départ 7h30</div>
-          <div class="meta"><i class="fas fa-chair"></i> 3 places disponibles</div>
+          <div class="trajet"><i class="fas fa-route" style="color:var(--info)"></i> <span data-fr="Ouled Imloul → Marrakech" data-ar="أولاد املول ← مراكش">Ouled Imloul → Marrakech</span></div>
+          <div class="meta"><i class="fas fa-clock"></i> <span data-fr="Tous les jours, départ 7h30" data-ar="كل يوم، الانطلاق 7:30">Tous les jours, départ 7h30</span></div>
+          <div class="meta"><i class="fas fa-chair"></i> <span data-fr="3 places disponibles" data-ar="3 مقاعد متاحة">3 places disponibles</span></div>
           <div class="meta"><i class="fas fa-phone"></i> Rachid · 06 12 34 56 78</div>
         </div>
         <div class="covoit-card">
-          <div class="trajet"><i class="fas fa-route" style="color:var(--info)"></i> Benguerir → Ouled Imloul</div>
-          <div class="meta"><i class="fas fa-clock"></i> Vendredi soir, départ 18h00</div>
-          <div class="meta"><i class="fas fa-chair"></i> 2 places disponibles</div>
+          <div class="trajet"><i class="fas fa-route" style="color:var(--info)"></i> <span data-fr="Benguerir → Ouled Imloul" data-ar="ابن جرير ← أولاد املول">Benguerir → Ouled Imloul</span></div>
+          <div class="meta"><i class="fas fa-clock"></i> <span data-fr="Vendredi soir, départ 18h00" data-ar="مساء الجمعة، الانطلاق 18:00">Vendredi soir, départ 18h00</span></div>
+          <div class="meta"><i class="fas fa-chair"></i> <span data-fr="2 places disponibles" data-ar="مقعدان متاحان">2 places disponibles</span></div>
           <div class="meta"><i class="fas fa-phone"></i> Fatima · 06 98 76 54 32</div>
         </div>
       </div>
       <div class="covoit-deposer">
-        <a href="#contact" class="lien-deposer"><i class="fas fa-plus-circle"></i> Déposer une annonce de covoiturage</a>
+        <a href="#contact" class="lien-deposer"><i class="fas fa-plus-circle"></i> <span data-fr="Déposer une annonce de covoiturage" data-ar="نشر إعلان للتنقل المشترك">Déposer une annonce de covoiturage</span></a>
       </div>
     </div>
   </div>
@@ -587,9 +597,9 @@ footer{background:var(--texte);color:#d8cdbd;padding:60px 0 28px}
 <section class="demarches" id="demarches">
   <div class="container">
     <div class="titre-section">
-      <span class="kicker">Vos formalités</span>
-      <h2>Guide des <em>Démarches</em> Administratives</h2>
-      <p>Les pièces à fournir et les délais pour vos démarches courantes.</p>
+      <span class="kicker" data-fr="Vos formalités" data-ar="إجراءاتكم">Vos formalités</span>
+      <h2 data-fr-html="Guide des <em>Démarches</em> Administratives" data-ar-html="دليل <em>المساطر</em> الإدارية">Guide des <em>Démarches</em> Administratives</h2>
+      <p data-fr="Les pièces à fournir et les délais pour vos démarches courantes." data-ar="الوثائق المطلوبة والآجال لمساطركم المعتادة.">Les pièces à fournir et les délais pour vos démarches courantes.</p>
     </div>
     <div class="demarche-accordeon">
 
@@ -666,8 +676,8 @@ footer{background:var(--texte);color:#d8cdbd;padding:60px 0 28px}
 <section class="etablissements" id="services">
   <div class="container">
     <div class="titre-section">
-      <span class="kicker">Au service des habitants</span>
-      <h2>Établissements & <em>Services publics</em></h2>
+      <span class="kicker" data-fr="Au service des habitants" data-ar="في خدمة الساكنة">Au service des habitants</span>
+      <h2 data-fr-html="Établissements &amp; <em>Services publics</em>" data-ar-html="المؤسسات و<em>المرافق العمومية</em>">Établissements & <em>Services publics</em></h2>
     </div>
     <div class="etab-grid">
       <div class="etab-card">
@@ -714,8 +724,8 @@ footer{background:var(--texte);color:#d8cdbd;padding:60px 0 28px}
 <section class="urgences" id="urgences">
   <div class="container">
     <div class="titre-section">
-      <span class="kicker" style="background:#fbe4e1;color:var(--urgence)">Sécurité & santé</span>
-      <h2>Urgences & <em>Pharmacie de garde</em></h2>
+      <span class="kicker" style="background:#fbe4e1;color:var(--urgence)" data-fr="Sécurité &amp; santé" data-ar="الأمن والصحة">Sécurité & santé</span>
+      <h2 data-fr-html="Urgences &amp; <em>Pharmacie de garde</em>" data-ar-html="الطوارئ و<em>الصيدلية المناوبة</em>">Urgences & <em>Pharmacie de garde</em></h2>
     </div>
     <div class="etab-grid">
       <div class="etab-card">
@@ -755,8 +765,8 @@ footer{background:var(--texte);color:#d8cdbd;padding:60px 0 28px}
 <section class="contact" id="contact">
   <div class="container">
     <div class="titre-section">
-      <span class="kicker">Restons en lien</span>
-      <h2>Contact & <em>Localisation</em></h2>
+      <span class="kicker" data-fr="Restons en lien" data-ar="لنبقَ على تواصل">Restons en lien</span>
+      <h2 data-fr-html="Contact &amp; <em>Localisation</em>" data-ar-html="الاتصال و<em>الموقع</em>">Contact & <em>Localisation</em></h2>
     </div>
     <div class="contact-grid">
       <div class="map-wrap">
@@ -766,26 +776,26 @@ footer{background:var(--texte);color:#d8cdbd;padding:60px 0 28px}
           title="Localisation de Ouled Imloul"></iframe>
       </div>
       <div class="form-card">
-        <h3>Écrivez-nous</h3>
+        <h3 data-fr="Écrivez-nous" data-ar="راسلونا">Écrivez-nous</h3>
         <form id="contactForm">
           <div class="form-group">
-            <label for="nom">Nom complet</label>
+            <label for="nom" data-fr="Nom complet" data-ar="الاسم الكامل">Nom complet</label>
             <input type="text" id="nom" required placeholder="Votre nom">
           </div>
           <div class="form-group">
-            <label for="email">Email</label>
+            <label for="email" data-fr="Email" data-ar="البريد الإلكتروني">Email</label>
             <input type="email" id="email" required placeholder="vous@exemple.com">
           </div>
           <div class="form-group">
-            <label for="sujet">Sujet</label>
+            <label for="sujet" data-fr="Sujet" data-ar="الموضوع">Sujet</label>
             <input type="text" id="sujet" required placeholder="Objet de votre message">
           </div>
           <div class="form-group">
-            <label for="message">Message</label>
+            <label for="message" data-fr="Message" data-ar="الرسالة">Message</label>
             <textarea id="message" required placeholder="Votre message..."></textarea>
           </div>
-          <button type="submit" class="btn btn-primaire" style="width:100%;justify-content:center"><i class="fas fa-paper-plane"></i> Envoyer</button>
-          <div class="form-succes" id="formSucces"><i class="fas fa-circle-check"></i> Merci ! Votre message a bien été envoyé.</div>
+          <button type="submit" class="btn btn-primaire" style="width:100%;justify-content:center"><i class="fas fa-paper-plane"></i> <span data-fr="Envoyer" data-ar="إرسال">Envoyer</span></button>
+          <div class="form-succes" id="formSucces"><i class="fas fa-circle-check"></i> <span data-fr="Merci ! Votre message a bien été envoyé." data-ar="شكراً! تم إرسال رسالتكم بنجاح.">Merci ! Votre message a bien été envoyé.</span></div>
         </form>
       </div>
     </div>
@@ -804,7 +814,7 @@ footer{background:var(--texte);color:#d8cdbd;padding:60px 0 28px}
         <p style="font-size:.88rem;color:#b6a994">Portail au service des habitants, de la diaspora et des visiteurs de la commune.</p>
       </div>
       <div class="footer-col">
-        <h4>Navigation</h4>
+        <h4 data-fr="Navigation" data-ar="التنقل">Navigation</h4>
         <ul>
           <li><a href="#decouvrir"><i class="fas fa-chevron-right" style="font-size:.7rem"></i> Découvrir</a></li>
           <li><a href="#annuaire"><i class="fas fa-chevron-right" style="font-size:.7rem"></i> Annuaire</a></li>
@@ -814,7 +824,7 @@ footer{background:var(--texte);color:#d8cdbd;padding:60px 0 28px}
         </ul>
       </div>
       <div class="footer-col">
-        <h4>Liens utiles</h4>
+        <h4 data-fr="Liens utiles" data-ar="روابط مفيدة">Liens utiles</h4>
         <ul>
           <li><a href="#urgences"><i class="fas fa-phone-volume"></i> Urgences</a></li>
           <li><a href="#services"><i class="fas fa-landmark"></i> Services publics</a></li>
@@ -823,7 +833,7 @@ footer{background:var(--texte);color:#d8cdbd;padding:60px 0 28px}
         </ul>
       </div>
       <div class="footer-col">
-        <h4>Coordonnées</h4>
+        <h4 data-fr="Coordonnées" data-ar="معلومات الاتصال">Coordonnées</h4>
         <div class="coord"><i class="fas fa-location-dot"></i> Siège de la commune, Ouled Imloul Centre, Province de Rehamna</div>
         <div class="coord"><i class="fas fa-phone"></i> 05 24 00 00 00</div>
         <div class="coord"><i class="fas fa-envelope"></i> contact@ouledimloul.ma</div>
@@ -842,79 +852,110 @@ footer{background:var(--texte);color:#d8cdbd;padding:60px 0 28px}
 
 // --- Les 9 douars officiels ---
 const douars = [
-  {nom:"Ouled Imloul Centre", ar:"أولاد املول المركز", chef:true, ico:"fa-location-crosshairs", desc:"Chef-lieu de la commune, siège de l'administration et du souk hebdomadaire."},
-  {nom:"Douar Bghoula", ar:"دوار بغولة", chef:false, ico:"fa-house-chimney", desc:"Avec son extension Azbane Bghoula. Vocation agricole et d'élevage."},
-  {nom:"Ouled Ben Anou", ar:"أولاد بن عنو", chef:false, ico:"fa-house-chimney", desc:"Comprend Touiriza Ouled Ben Anou. Terres céréalières."},
-  {nom:"Ouled Arafat", ar:"أولاد عرفات", chef:false, ico:"fa-house-chimney", desc:"Avec l'extension Azbane Ouled Arafat. Élevage ovin réputé."},
-  {nom:"Zaouiat Belguern", ar:"زاوية بلكرن", chef:false, ico:"fa-house-chimney", desc:"Douar à forte tradition spirituelle et communautaire."},
-  {nom:"Nzalat Ouled Moussa", ar:"نزالة أولاد موسى", chef:false, ico:"fa-house-chimney", desc:"Comprend Azbane Ouled Moussa. Point de passage historique."},
-  {nom:"Kaddour Ben Brik", ar:"قدور بن بريك", chef:false, ico:"fa-house-chimney", desc:"Petit douar agricole au sud de la commune."},
-  {nom:"Ouled Rahmoun", ar:"أولاد رحمون", chef:false, ico:"fa-house-chimney", desc:"Avec l'extension Azbane Ouled Rahmoun. Pâturages et cultures."},
-  {nom:"Ouled Ahmed Ben Brahim", ar:"أولاد أحمد بن إبراهيم", chef:false, ico:"fa-house-chimney", desc:"Douar aux activités mixtes d'agriculture et d'élevage."}
+  {nom:"Ouled Imloul Centre", ar:"أولاد املول المركز", chef:true, ico:"fa-location-crosshairs", desc:{fr:"Chef-lieu de la commune, siège de l'administration et du souk hebdomadaire.",ar:"مركز الجماعة، مقر الإدارة والسوق الأسبوعي."}},
+  {nom:"Douar Bghoula", ar:"دوار بغولة", chef:false, ico:"fa-house-chimney", desc:{fr:"Avec son extension Azbane Bghoula. Vocation agricole et d'élevage.",ar:"مع امتداده أزبان بغولة. ذو طابع فلاحي ورعوي."}},
+  {nom:"Ouled Ben Anou", ar:"أولاد بن عنو", chef:false, ico:"fa-house-chimney", desc:{fr:"Comprend Touiriza Ouled Ben Anou. Terres céréalières.",ar:"يضم تويريزة أولاد بن عنو. أراضٍ زراعية للحبوب."}},
+  {nom:"Ouled Arafat", ar:"أولاد عرفات", chef:false, ico:"fa-house-chimney", desc:{fr:"Avec l'extension Azbane Ouled Arafat. Élevage ovin réputé.",ar:"مع امتداد أزبان أولاد عرفات. تربية أغنام معروفة."}},
+  {nom:"Zaouiat Belguern", ar:"زاوية بلكرن", chef:false, ico:"fa-house-chimney", desc:{fr:"Douar à forte tradition spirituelle et communautaire.",ar:"دوار ذو تقاليد روحية ومجتمعية عريقة."}},
+  {nom:"Nzalat Ouled Moussa", ar:"نزالة أولاد موسى", chef:false, ico:"fa-house-chimney", desc:{fr:"Comprend Azbane Ouled Moussa. Point de passage historique.",ar:"يضم أزبان أولاد موسى. نقطة عبور تاريخية."}},
+  {nom:"Kaddour Ben Brik", ar:"قدور بن بريك", chef:false, ico:"fa-house-chimney", desc:{fr:"Petit douar agricole au sud de la commune.",ar:"دوار فلاحي صغير جنوب الجماعة."}},
+  {nom:"Ouled Rahmoun", ar:"أولاد رحمون", chef:false, ico:"fa-house-chimney", desc:{fr:"Avec l'extension Azbane Ouled Rahmoun. Pâturages et cultures.",ar:"مع امتداد أزبان أولاد رحمون. مراعٍ وزراعات."}},
+  {nom:"Ouled Ahmed Ben Brahim", ar:"أولاد أحمد بن إبراهيم", chef:false, ico:"fa-house-chimney", desc:{fr:"Douar aux activités mixtes d'agriculture et d'élevage.",ar:"دوار بأنشطة مختلطة من فلاحة وتربية ماشية."}}
 ];
 
-// --- Annuaire des professionnels ---
+// --- Annuaire des professionnels (métier traduit) ---
 const pros = [
-  {metier:"Électricien", nom:"Ahmed El Amrani", douar:"Centre", tel:"0612000001", ico:"fa-bolt"},
-  {metier:"Plombier", nom:"Hassan Ben Ali", douar:"Bghoula", tel:"0612000002", ico:"fa-faucet"},
-  {metier:"Maçon", nom:"Mustapha Saidi", douar:"Ouled Arafat", tel:"0612000003", ico:"fa-trowel-bricks"},
-  {metier:"Menuisier", nom:"Khalid Naciri", douar:"Centre", tel:"0612000004", ico:"fa-hammer"},
-  {metier:"Ferronnier", nom:"Omar Tahiri", douar:"Ouled Ben Anou", tel:"0612000005", ico:"fa-fire"},
-  {metier:"Coiffeur", nom:"Youssef Alami", douar:"Centre", tel:"0612000006", ico:"fa-scissors"},
-  {metier:"Mécanicien", nom:"Said Boukhari", douar:"Nzalat Ouled Moussa", tel:"0612000007", ico:"fa-wrench"},
-  {metier:"Épicier", nom:"Brahim Lahlou", douar:"Zaouiat Belguern", tel:"0612000008", ico:"fa-basket-shopping"}
+  {metier:{fr:"Électricien",ar:"كهربائي"}, nom:"Ahmed El Amrani", douar:{fr:"Centre",ar:"المركز"}, tel:"0612000001", ico:"fa-bolt"},
+  {metier:{fr:"Plombier",ar:"سباك"}, nom:"Hassan Ben Ali", douar:{fr:"Bghoula",ar:"بغولة"}, tel:"0612000002", ico:"fa-faucet"},
+  {metier:{fr:"Maçon",ar:"بنّاء"}, nom:"Mustapha Saidi", douar:{fr:"Ouled Arafat",ar:"أولاد عرفات"}, tel:"0612000003", ico:"fa-trowel-bricks"},
+  {metier:{fr:"Menuisier",ar:"نجّار"}, nom:"Khalid Naciri", douar:{fr:"Centre",ar:"المركز"}, tel:"0612000004", ico:"fa-hammer"},
+  {metier:{fr:"Ferronnier",ar:"حدّاد"}, nom:"Omar Tahiri", douar:{fr:"Ouled Ben Anou",ar:"أولاد بن عنو"}, tel:"0612000005", ico:"fa-fire"},
+  {metier:{fr:"Coiffeur",ar:"حلّاق"}, nom:"Youssef Alami", douar:{fr:"Centre",ar:"المركز"}, tel:"0612000006", ico:"fa-scissors"},
+  {metier:{fr:"Mécanicien",ar:"ميكانيكي"}, nom:"Said Boukhari", douar:{fr:"Nzalat Ouled Moussa",ar:"نزالة أولاد موسى"}, tel:"0612000007", ico:"fa-wrench"},
+  {metier:{fr:"Épicier",ar:"بقّال"}, nom:"Brahim Lahlou", douar:{fr:"Zaouiat Belguern",ar:"زاوية بلكرن"}, tel:"0612000008", ico:"fa-basket-shopping"}
 ];
 
 // --- Professionnels du pompage solaire ---
 const solairePros = [
-  {metier:"Pompage solaire", nom:"SunIrrig", douar:"Rehamna", tel:"0612001001", ico:"fa-solar-panel"},
-  {metier:"Pompage solaire", nom:"EauTech Rehamna", douar:"Benguerir", tel:"0612001002", ico:"fa-water"},
-  {metier:"Énergie agricole", nom:"AgriEnergia", douar:"Marrakech", tel:"0612001003", ico:"fa-seedling"}
+  {metier:{fr:"Pompage solaire",ar:"ضخ شمسي"}, nom:"SunIrrig", douar:{fr:"Rehamna",ar:"الرحامنة"}, tel:"0612001001", ico:"fa-solar-panel"},
+  {metier:{fr:"Pompage solaire",ar:"ضخ شمسي"}, nom:"EauTech Rehamna", douar:{fr:"Benguerir",ar:"ابن جرير"}, tel:"0612001002", ico:"fa-water"},
+  {metier:{fr:"Énergie agricole",ar:"طاقة فلاحية"}, nom:"AgriEnergia", douar:{fr:"Marrakech",ar:"مراكش"}, tel:"0612001003", ico:"fa-seedling"}
 ];
 
 // --- Transport ---
 const transports = [
-  {metier:"Grand Taxi", nom:"Ouled Imloul → Benguerir", douar:"15 DH · toutes les 30 min", tel:"0612002001", ico:"fa-taxi"},
-  {metier:"Grand Taxi", nom:"Ouled Imloul → Marrakech", douar:"50 DH · départs réguliers", tel:"0612002002", ico:"fa-taxi"},
-  {metier:"Transport scolaire", nom:"Ramassage des douars", douar:"Départ 7h · retour 17h", tel:"0612002003", ico:"fa-bus"},
-  {metier:"Transport scolaire", nom:"Arrêt Bghoula / Arafat", douar:"Matin & après-midi", tel:"0612002004", ico:"fa-bus-simple"}
+  {metier:{fr:"Grand Taxi",ar:"طاكسي كبير"}, nom:{fr:"Ouled Imloul → Benguerir",ar:"أولاد املول ← ابن جرير"}, douar:{fr:"15 DH · toutes les 30 min",ar:"15 درهم · كل 30 دقيقة"}, tel:"0612002001", ico:"fa-taxi"},
+  {metier:{fr:"Grand Taxi",ar:"طاكسي كبير"}, nom:{fr:"Ouled Imloul → Marrakech",ar:"أولاد املول ← مراكش"}, douar:{fr:"50 DH · départs réguliers",ar:"50 درهم · رحلات منتظمة"}, tel:"0612002002", ico:"fa-taxi"},
+  {metier:{fr:"Transport scolaire",ar:"النقل المدرسي"}, nom:{fr:"Ramassage des douars",ar:"نقل تلاميذ الدواوير"}, douar:{fr:"Départ 7h · retour 17h",ar:"الذهاب 7ص · العودة 17"}, tel:"0612002003", ico:"fa-bus"},
+  {metier:{fr:"Transport scolaire",ar:"النقل المدرسي"}, nom:{fr:"Arrêt Bghoula / Arafat",ar:"محطة بغولة / عرفات"}, douar:{fr:"Matin & après-midi",ar:"صباحاً ومساءً"}, tel:"0612002004", ico:"fa-bus-simple"}
 ];
 
 /* ============================================================
    RENDU DYNAMIQUE
    ============================================================ */
 
+/* ============================================================
+   GESTION DE LA LANGUE (FR / AR)
+   ============================================================ */
+let langue = 'fr';
+// Renvoie la bonne valeur selon la langue (objet bilingue ou chaîne simple)
+function t(val){ return (val && typeof val === 'object') ? (val[langue] || val.fr) : val; }
+
 // Rendu des douars
 function renderDouars(){
   document.getElementById('douarsGrid').innerHTML = douars.map(d => `
     <div class="douar-card">
       <div class="ico"><i class="fas ${d.ico}"></i></div>
-      <span class="badge ${d.chef ? 'badge-chef' : 'badge-douar'}">${d.chef ? 'Chef-lieu' : 'Douar'}</span>
-      <h3>${d.nom}</h3>
-      <div class="ar">${d.ar}</div>
-      <p>${d.desc}</p>
+      <span class="badge ${d.chef ? 'badge-chef' : 'badge-douar'}">${d.chef ? (langue==='ar'?'مركز':'Chef-lieu') : (langue==='ar'?'دوار':'Douar')}</span>
+      <h3>${langue==='ar' ? d.ar : d.nom}</h3>
+      <div class="ar">${langue==='ar' ? d.nom : d.ar}</div>
+      <p>${t(d.desc)}</p>
     </div>`).join('');
 }
 
 // Génère une carte pro réutilisable
 function carteProHTML(p){
+  const appeler = langue==='ar' ? 'اتصل' : 'Appeler';
   return `
     <div class="pro-card">
       <div class="pro-head">
         <div class="ico"><i class="fas ${p.ico}"></i></div>
         <div>
-          <div class="pro-metier">${p.metier}</div>
-          <div class="pro-nom">${p.nom}</div>
+          <div class="pro-metier">${t(p.metier)}</div>
+          <div class="pro-nom">${t(p.nom)}</div>
         </div>
       </div>
-      <div class="pro-douar"><i class="fas fa-location-dot"></i> ${p.douar}</div>
-      <a class="btn-appel" href="tel:${p.tel}"><i class="fas fa-phone"></i> Appeler</a>
+      <div class="pro-douar"><i class="fas fa-location-dot"></i> ${t(p.douar)}</div>
+      <a class="btn-appel" href="tel:${p.tel}"><i class="fas fa-phone"></i> ${appeler}</a>
     </div>`;
 }
 
 function renderPros(){ document.getElementById('prosGrid').innerHTML = pros.map(carteProHTML).join(''); }
 function renderSolaire(){ document.getElementById('solaireGrid').innerHTML = solairePros.map(carteProHTML).join(''); }
 function renderTransport(){ document.getElementById('transportGrid').innerHTML = transports.map(carteProHTML).join(''); }
+function renderAll(){ renderDouars(); renderPros(); renderSolaire(); renderTransport(); }
+
+// Applique la langue à toute la page
+function appliquerLangue(l){
+  langue = l;
+  document.documentElement.lang = l;
+  document.documentElement.dir = (l === 'ar') ? 'rtl' : 'ltr';
+  // Textes simples
+  document.querySelectorAll('[data-fr]').forEach(el => {
+    const txt = el.getAttribute('data-' + l);
+    if (txt !== null) el.textContent = txt;
+  });
+  // Textes contenant du HTML (avec <em>)
+  document.querySelectorAll('[data-fr-html]').forEach(el => {
+    const txt = el.getAttribute('data-' + l + '-html');
+    if (txt !== null) el.innerHTML = txt;
+  });
+  // Boutons du sélecteur
+  document.querySelectorAll('#langSwitch button').forEach(b =>
+    b.classList.toggle('actif', b.dataset.lang === l));
+  // Re-rendu des contenus dynamiques
+  renderAll();
+}
 
 /* ============================================================
    COMPORTEMENTS JS
@@ -960,7 +1001,9 @@ document.querySelectorAll('.lire-suite').forEach(btn => {
     const plus = btn.previousElementSibling; // .conseil-plus
     plus.classList.toggle('ouvert');
     btn.classList.toggle('ouvert');
-    btn.childNodes[0].nodeValue = plus.classList.contains('ouvert') ? 'Réduire ' : 'Lire la suite ';
+    btn.childNodes[0].nodeValue = plus.classList.contains('ouvert')
+      ? (langue==='ar' ? 'إخفاء ' : 'Réduire ')
+      : (langue==='ar' ? 'اقرأ المزيد ' : 'Lire la suite ');
   });
 });
 
@@ -970,12 +1013,13 @@ document.getElementById('calculSim').addEventListener('click', () => {
   const prof = parseFloat(document.getElementById('profondeur').value) || 0;
   const debit = parseFloat(document.getElementById('debit').value) || 0;
   const soleil = parseFloat(document.getElementById('ensoleillement').value) || 6;
-  if (prof <= 0 || debit <= 0) { alert('Veuillez saisir une profondeur et un débit valides.'); return; }
+  if (prof <= 0 || debit <= 0) { alert(langue==='ar' ? 'يرجى إدخال عمق وصبيب صحيحين.' : 'Veuillez saisir une profondeur et un débit valides.'); return; }
   const puissance = (debit * prof * 2.725) / soleil;
   const nbPanneaux = Math.ceil(puissance / 300);
   document.getElementById('simPuissance').textContent = Math.round(puissance) + ' W';
-  document.getElementById('simPanneaux').innerHTML =
-    `Soit environ <strong>${nbPanneaux} panneau${nbPanneaux>1?'x':''}</strong> de 300 W.`;
+  document.getElementById('simPanneaux').innerHTML = langue==='ar'
+    ? `أي حوالي <strong>${nbPanneaux} لوح</strong> بقدرة 300 واط.`
+    : `Soit environ <strong>${nbPanneaux} panneau${nbPanneaux>1?'x':''}</strong> de 300 W.`;
   document.getElementById('simResult').classList.add('show');
 });
 
@@ -1001,11 +1045,13 @@ document.getElementById('contactForm').addEventListener('submit', (e) => {
   setTimeout(() => succes.classList.remove('show'), 4000);
 });
 
+// --- Sélecteur de langue ---
+document.querySelectorAll('#langSwitch button').forEach(b => {
+  b.addEventListener('click', () => appliquerLangue(b.dataset.lang));
+});
+
 // --- Initialisation ---
-renderDouars();
-renderPros();
-renderSolaire();
-renderTransport();
+appliquerLangue('fr');
 </script>
 </body>
 </html>
